@@ -1,1 +1,4 @@
-# vue-cli 多页面应用模板
+# angel website
+
+1. npm install  
+2. npm run dev
