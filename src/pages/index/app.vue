@@ -160,6 +160,8 @@ export default {
             } else {
                 this.bounceTimer = setTimeout(() => {
                     this._initTimeInterval();
+                    clearTimeout(this.bounceTimer)
+                    this.bounceTimer = null
                 }, 5000);
             }
         },
