@@ -1,7 +1,7 @@
 <template>
     <div class="banner" :style="{backgroundImage: 'url('+src+')'}">
         <div class="mask"></div>
-        <div class="b-text">未来并不遥远，就在你脚下</div>
+        <div class="b-text">{{text}}</div>
     </div>
 </template>
 
@@ -11,9 +11,9 @@ export default {
         return {
         };
     },
-    props: ['src'],
+    props: ['src','text'],
     mounted(){
-
+        console.log(this.text)
     },
     components: {}
 };

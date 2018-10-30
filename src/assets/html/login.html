@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="./font/iconfont.css">
+</head>
+<body>
+    <div class="container" id="app">
+        <div class="mask"></div>
+        <div class="wrapper clearfix">
+            <div class="w-l">
+                <div class="w-l-title"><span class="pre">全新SAAS</span>新媒体内容管理平台</div>
+                <span class="w-l-line"></span>
+                <ul class="w-l-list">
+                    <li class="w-l-item">强大的数据新媒体内容素材</li>
+                    <li class="w-l-item">商家/自媒体简约，便捷一键跨平台矩阵式推广</li>
+                    <li class="w-l-item">用户需求挖掘，用户焦点数据</li>
+                    <li class="w-l-item">用户定位数据</li>
+                    <li class="w-l-item">便捷的广告编辑处理</li>
+                    <li class="w-l-item">线上线下结合</li>
+                    <li class="w-l-item">自主研发人工智能（AI）搜索</li>
+                </ul>
+            </div>
+            <div class="w-r">
+                <div class="w-r-box">
+                    <!-- tab -->
+                    <div class="w-r-tabs">
+                        <div class="w-r-tab" @click="loginHandle(1)">
+                            <i class="iconfont icon-user" :class="{active: isLoinByPwd}"></i><span>密码登录</span>   
+                        </div>
+                        <span class="line"></span>
+                        <div class="w-r-tab" @click="loginHandle(0)">
+                            <i class="iconfont icon-wechat" :class="{active: !isLoinByPwd}"></i><span>微信登录</span>
+                        </div>
+                    </div>
+                    <el-form ref="loginForm" class="w-r-form" v-show="isLoinByPwd" :rules="rules" :model="loginForm">
+                        <el-form-item class="m-input" prop="username"><el-input   prefix-icon="iconfont icon-phone icon-m-form" placeholder="请输入账号" v-model="loginForm.username"></el-input></el-form-item>
+                        <el-form-item class="m-input" prop="pwd"><el-input  prefix-icon="iconfont icon-46 icon-m-form" placeholder="请输入密码" v-model="loginForm.pwd"></el-input></el-form-item>
+                        <!-- <el-form-item style="width: 120px" ><el-input placeholder="请验证码"></el-input></el-form-item> -->
+                        <el-form-item style="margin:14px 0">
+                                <el-checkbox label="记住密码" name="type"></el-checkbox>
+                                <a href="#">忘记密码</a>
+                        </el-form-item>
+                        <el-form-item style="margin-bottom: 17px">
+                            <el-button type="primary" style="width: 100%;height:38px;border-radius:25px" @click="submitForm('loginForm')">登录</el-button>
+                        </el-form-item>
+                        <button class="register">立即注册</button>
+                    </el-form>
+                    <div class="wechat-box" v-show="!isLoinByPwd">
+                        <img src="./img/wechatcode.gif" alt="">
+                    </div>
+                    <!-- 注册 -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <!-- import JavaScript -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script src="login.js"></script>
+</body>
+</html>

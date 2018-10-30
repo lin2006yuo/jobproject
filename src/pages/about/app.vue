@@ -1,7 +1,7 @@
 <template>
     <div class="about">
-        <navigator></navigator>
-        <banner :src="url"></banner>
+        <navigator @start="getStart"></navigator>
+        <banner :text="'专注为新女性服务的数字新媒体平台'" :src="url"></banner>
         <div class="wrapper">
             <div class="introbox">
                 <div class="title">公司简介</div>
@@ -10,13 +10,10 @@
                         ,懂人性，懂文化，知人性，会生活的，做完美女人，一个会让你变得更好女人的教育平台。
                     </p>
                     <p class="info">
-                        我们服务的内容主要包括婚礼，育婴，家庭教育等；共分为六个主题：天使婚礼，天使孕妈，天
-                        使婴幼儿，天使胄少年，天使完美女人，天使大咖。为不同阶段的中国新女性提供相对应的信息
-                        服务。
+                        我们服务的内容主要包括婚礼，育婴，家庭教育等；共分为六个主题：天使婚礼，天使孕妈，天使婴幼儿，天使少年，天使完美女人，天使大咖。为不同阶段的中国新女性提供相对应的信息服务。
                     </p>
                     <p class="info">
-                        优势：打造芫美女性，让女性更加懂得生活，懂得学习，懂得去教育下一代，以及教会女人变得
-                        时尚。让女人变得更加富有内涵，气质突显。
+                        优势：打造完美女性，让女性更加懂得生活，懂得学习，懂得去教育下一代，以及教会女人变得时尚。让女人变得更加富有内涵，气质突显。
                     </p>
                 </div>
                 <div class="icon-box clearfix">
@@ -25,32 +22,25 @@
                         <div class="icon-title">愿景</div>
                         <p class="icon-text">成为最受女性欢迎的新媒体平台</p>
                     </div>
-                    <div class="icon-item">
+                    <div class="icon-item icon-item2">
                         <i class="icon debug-icon"></i>
-                        <div class="icon-title">愿景</div>
-                        <p class="icon-text">成为最受女性欢迎的新媒体平台</p>
+                        <div class="icon-title">使命</div>
+                        <p class="icon-text">让爱传播到世界的各个角落</p>
                     </div>
-                    <div class="icon-item">
+                    <div class="icon-item icon-item3">
                         <i class="icon debug-icon"></i>
-                        <div class="icon-title">愿景</div>
-                        <p class="icon-text">成为最受女性欢迎的新媒体平台</p>
+                        <div class="icon-title">价值观</div>
+                        <p class="icon-text">一直在努力从不放弃</p>
                     </div>
                 </div>
             </div>
             <div class="information-box">
                 <span class="line"></span>
                 <div class="info-box">
-                    <p class="info">天使之翼 Angelswing"作为新女性数字新媒体平台，励志为中国新时代女性提供一个时尚，科学
-                        ,懂人性，懂文化，知人性，会生活的，做完美女人，一个会让你变得更好女人的教育平台。
+                    <p class="info">主要内容包括婚礼策划，孕育知识，育儿方法，家庭教育等；共分为六个主题：天使婚礼，天使孕妈，天使婴幼儿，天使青少年，天使完美女人，天使大咖 ,为不同阶段的中国新女性提供相对应的信息服务
                     </p>
                     <p class="info">
-                        我们服务的内容主要包括婚礼，育婴，家庭教育等；共分为六个主题：天使婚礼，天使孕妈，天
-                        使婴幼儿，天使胄少年，天使完美女人，天使大咖。为不同阶段的中国新女性提供相对应的信息
-                        服务。
-                    </p>
-                    <p class="info">
-                        优势：打造芫美女性，让女性更加懂得生活，懂得学习，懂得去教育下一代，以及教会女人变得
-                        时尚。让女人变得更加富有内涵，气质突显。
+                        我们致力于解决女性对家庭教育知识的渴望，让女性变得更懂爱，更懂生活的完美女性，公司的愿景是，通过我们的不断努力，成为女性新媒体第一平台。
                     </p>
                 </div>
                 <div class="info-title-box">
@@ -59,15 +49,43 @@
                 </div>
                 <div class="data-box clearfix">
                     <div class="data-left">
-                        <div class="data-l-item" v-for="item in 5" :key="item">
-                            <p class="data-l-number">21559</p>
+                        <div class="data-l-item">
+                            <countTo ref="count1" :autoplay="false" class="data-l-number" :startVal='0' :endVal='2155962' :duration='3000'></countTo>
                             <p class="data-l-intro">用户量</p>
+                        </div>
+                        <div class="data-l-item">
+                            <countTo  ref="count2" :autoplay="false" @start="start" class="data-l-number" :startVal='0' :endVal='201933' :duration='3000'></countTo>
+                            <p class="data-l-intro">付费用户量</p>
+                        </div>
+                        <div class="data-l-item">
+                            <countTo ref="count3" :autoplay="false" class="data-l-number" :startVal='0' :endVal='501933' :duration='3000'></countTo>                            
+                            <p class="data-l-intro">月活用户数量</p>
+                        </div>
+                        <div class="data-l-item">
+                            <countTo ref="count4" :autoplay="false" class="data-l-number" :startVal='0' :endVal='1394' :duration='3000'></countTo>                            
+                            <p class="data-l-intro">著名学者</p>
+                        </div>
+                        <div class="data-l-item">
+                            <countTo ref="count5" :autoplay="false" class="data-l-number" :startVal='0' :endVal='16398' :duration='3000'></countTo>                            
+                            <p class="data-l-intro">战略合作品牌</p>
                         </div>
                     </div>
                     <div class="data-right">
-                        <div class="data-r-item" v-for="item in 5" :key="item">
+                        <div class="data-r-item">
                             <p class="data-r-title">主流用户</p>
                             <p class="data-r-intro">20岁至40岁女性</p>
+                        </div>
+                        <div class="data-r-item">
+                            <p class="data-r-title">用户结构</p>
+                            <p class="data-r-intro">月收入10万以上用户占比23%，月收入5-8万以上用户占比26%，月收入3-5万以上用户占<br>比35%，月收入1-3万以上用户占比26%</p>
+                        </div>
+                        <div class="data-r-item">
+                            <p class="data-r-title">著名学者</p>
+                            <p class="data-r-intro">国内外近百名知名心理学，神经网络学，社会学等专家入住天使之翼平台</p>
+                        </div>
+                        <div class="data-r-item">
+                            <p class="data-r-title">战略合作品牌</p>
+                            <p class="data-r-intro">Wyeth, Friso. Dumex, AbboR. NesUe. Nutrtion, FIRMUS. BEINGMATE;<br>Anmum, Mead Johnson, Oumex. Ausnutria. VIVA naturals, Jamieson. Webber<br>Naturals. SunRype, Summerhlll, Ocean Spfay. Arcteryx, Frtst response Pamper.</p>
                         </div>
                     </div>
                 </div>
@@ -81,7 +99,9 @@
 import Navigator from "@/components/nav";
 import Banner from "@/components/banner";
 import Mfooter from '@/components/footer'
-import img from '@/assets/images/information_banner.jpg'
+import img from '@/assets/images/joinus_banner.jpg'
+import countTo from 'vue-count-to';
+import {isMobile} from '@/assets/js/mobile.js'
 
 
 export default {
@@ -90,10 +110,28 @@ export default {
             url: img
         };
     },
+    mounted(){
+        // window.addEventListener('scroll',this.count)
+        isMobile()
+    },
     components: {
         Banner,
         Navigator,
-        Mfooter
+        Mfooter,
+        countTo
+    },
+    methods: {
+        start(){
+            console.log(1);
+            
+        },
+        getStart(){
+            this.$refs.count1.start()
+            this.$refs.count2.start()
+            this.$refs.count3.start()
+            this.$refs.count4.start()
+            this.$refs.count5.start()
+        }
     }
 };
 </script>
@@ -125,6 +163,9 @@ export default {
     font-size 16px
     color #999
     letter-spacing 1px
+.m-bold
+    color #000
+    font-weight bold
 .wrapper .introbox .icon-box
     clearfix()
 .wrapper .introbox .icon-box .icon-item
@@ -137,6 +178,12 @@ export default {
     height 120px
     background-image url('~assets/images/icon_test.png')
     margin-bottom 20px
+.wrapper .introbox .icon-box .icon-item.icon-item2 i
+    background-image url('~assets/images/icon_test2.png')
+    background-position: -63px -8px;
+.wrapper .introbox .icon-box .icon-item.icon-item3 i
+    background-image url('~assets/images/icon_test3.png')
+    background-position: -66px -8px;
 .debug-icon {
     background-position: -65px -8px
 }
@@ -175,8 +222,9 @@ export default {
     margin-bottom 22px
     font-size 16px
     color #999
-    letter-spacing 1px
+    letter-spacing 3px
 .wrapper .information-box .info-title
+    letter-spacing 6px
     font-size 48px
     margin-bottom 13px
 .wrapper .information-box .info-title-b
@@ -190,9 +238,15 @@ export default {
 .wrapper .data-box
     clearfix()
 /* left */
+
+
+
+
 .wrapper .data-box .data-left
+    text-align right 
     float left
-    margin-right 90px
+    margin-right 135px
+    margin-left: 8px;
 /* right */
 .wrapper .data-box .data-right
     float left
@@ -200,6 +254,7 @@ export default {
 .wrapper .data-box .data-left .data-l-item
     margin-bottom 30px
 .wrapper .data-box .data-left .data-l-item .data-l-number
+    display block
     font-size 38px
     font-weight bold
     margin 0 0 13px 0
@@ -214,12 +269,13 @@ export default {
 /* item right */
 .wrapper .data-box .data-right .data-r-item
     text-align left
-    margin-bottom 50px
+    margin-bottom 45px
 .wrapper .data-box .data-right .data-r-item .data-r-title
     font-weight bold
     font-size 14px
-    margin 20px 0 20px 0
+    margin 11px 0 20px 0
 .wrapper .data-box .data-right .data-r-item .data-r-intro
+    line-height 22px
     font-size 14px
     color #666
 </style>
