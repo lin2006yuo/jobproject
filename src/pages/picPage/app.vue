@@ -1,6 +1,6 @@
 <template>
   <div class="pic_page">
-    <div style="position: fixed">sadsad</div>
+    <!-- <header>我是头部</header> -->
     <vue-waterfall-easy 
       ref="waterfall"
       :imgsArr="imgsArr"
@@ -8,11 +8,11 @@
       :maxCols="3"
        @scrollReachBottom="fetchImgsData"
     >
-    <div slot="waterfall-head">waterfall-head</div>
-  <div class="img-info" slot-scope="props">
-    <p class="some-info">第{{props.index+1}}张图片</p>
-    <!-- <p class="some-info">{{props.value.info}}</p> -->
-  </div>
+      <div slot="waterfall-head">waterfall-head</div>
+      <div class="img-info" slot-scope="props">
+        <p class="some-info">第{{props.index+1}}张图片</p>
+        <!-- <p class="some-info">{{props.value.info}}</p> -->
+      </div>
     </vue-waterfall-easy>
     <!-- <img src="static/img/123.png" alt=""> -->
   </div>
@@ -20,7 +20,7 @@
 
 <script>
 // 瀑布流组件
-import vueWaterfallEasy from 'vue-waterfall-easy'
+import vueWaterfallEasy from '@/components/vue-waterfall-easy'
 
 export default {
   components:{

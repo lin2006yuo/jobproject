@@ -15,7 +15,7 @@
                 <p class="item"><a href="#">育儿</a></p>
                 <p class="item"><a href="#">家庭教育</a></p>
             </ul>
-            <ul class="list">
+            <ul class="list" style="margin-left: 60px">
                 <p class="title"><a href="#">关于我们</a></p>
                 <p class="item contact-item"><a href="#">联系我们</a></p>
                 <p class="contact">商务合作：Sales@Angelswing.com.cn</p>
@@ -24,9 +24,16 @@
                 <p class="item join-item"><a href="#">加入我们</a></p>
                 <p class="contact">我们重视每一位员工，期待共同成长，<br>共同进步，为美好的明天而奋斗。</p>
             </ul>
-            <ul class="list">
+            <ul class="list" style="margin: 0 28px">
                 <p class="title"><a href="#">关注我们</a></p>
-                <img src="@/assets/images/code.png" alt="" class="codeimg">
+                <div class="codeimg" style="display:inline-block;margin-right: 25px">
+                     <img src="@/assets/images/code.png" alt="">
+                     <div class="tex">服务号</div>
+                </div>
+                <div class="codeimg" style="display:inline-block;margin-right: 25px">
+                     <img src="@/assets/images/code2.jpg" alt="">
+                     <div class="tex">订阅号</div>
+                </div>
             </ul>
         </div>
     </div>
@@ -46,11 +53,13 @@ export default {
     .footer .box
         width 1000px !important
     .footer .box .list
-        margin 0 60px !important
+        margin 0 40px !important
 .footer
     width 100%
     background-color #2e3642
     padding 40px 0
+    position relative
+    z-index 1000
 .footer .box
     width 1140px
     margin 0 auto
@@ -58,9 +67,9 @@ export default {
 .footer .box .list
     text-align left 
     float left
-    margin 0 90px
+    margin 0 80px
 .footer .box .list:nth-child(3)
-    margin-right 0
+    margin-right 10px
 .footer .box .list .title
     margin-bottom 35px
 .footer .box .list .title a
@@ -69,9 +78,18 @@ export default {
 .footer .box .list .item
     margin-bottom 25px
 .footer .box .list .item a
-    color #666
+    color #999
 .codeimg
+    width 103px
+    height 103px
     margin-top -2px
+    img 
+        width 100%
+        height 100px
+        margin-bottom 10px
+    .tex
+        text-align center
+        color #eaeaee
 .contact
     font-size 14px
     color #999

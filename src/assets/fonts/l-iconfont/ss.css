@@ -1,0 +1,22 @@
+.icon-user {
+  font-size: 26px;
+  vertical-align: middle;
+  padding-right: 4px;
+}
+.icon-user.active {
+  color: #7dbbfe;
+}
+.icon-wechat {
+  font-size: 26px;
+  vertical-align: middle;
+  padding-right: 9px;
+}
+.icon-wechat.active {
+  color: #7dbbfe;
+}
+.el-input__prefix {
+  left: 20px;
+}
+.el-input__prefix .icon-phone {
+  font-size: 16px;
+}

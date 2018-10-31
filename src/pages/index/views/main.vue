@@ -7,6 +7,12 @@
                         <p class="text" v-html="item.text"></p>
                         <div class="mask"></div>
                     </div>
+                    <!-- 延迟加载 -->
+                    <!-- <div :data-background="item.url" class="swiper-lazy img">
+                        <div class="swiper-lazy-preloader"></div>
+                        <p class="text" v-html="item.text"></p>
+                        <div class="mask"></div>
+                    </div> -->
                 </swiper-slide>
                 <div class="swiper-pagination" slot="pagination"></div>
                 <div class="swiper-button-prev" slot="button-prev"></div>
@@ -21,8 +27,9 @@
             <div class="content-box clearfix">
                 <div class="content-wrapper clearfix">
                     <div class="content" v-for="(item, index) in content_box_list" :key="index">
+                        <!-- <div class="imgbox" @click="contentBoxHandle(index + 1)"> -->
                         <div class="imgbox" @click="contentBoxHandle(index + 1)">
-                            <img :src="item.img" alt="">
+                            <img v-lazy="item.img" alt="">
                             <div class="mask"></div>
                             <div class="text">{{item.text}}</div>
                         </div>
@@ -50,14 +57,14 @@
                     <div class="phone">
                         <div class="img-box">
                             <transition-group tag="ul" name="fade" move-class="cl1">
-                                <img v-show="currentIndex === index" v-for="(src, index) in srcList" :key="index" :src="src" alt="">
+                                <img v-show="currentIndex === index" v-for="(src, index) in srcList" :key="index" v-lazy="src" alt="">
                             </transition-group>
                         </div>
                     </div>
                     <div class="phone">
                         <div class="img-box">
                             <transition-group tag="div" name="fade">
-                                <img v-show="currentIndex === index" v-for="(src, index) in srcList2" :key="index" :src="src" alt="">
+                                <img v-show="currentIndex === index" v-for="(src, index) in srcList2" :key="index" v-lazy="src" alt="">
                             </transition-group>
                         </div>
                     </div>
@@ -123,28 +130,32 @@ export default {
             ],
             srcList: [
                 require("@/assets/images/phone/婚礼/婚礼素材库.png"),
-                require("@/assets/images/phone/孕育/孕妇规划.png"),
+                require("@/assets/images/phone/孕育/孕妇规划.png"),   
+                require("@/assets/images/phone/育儿/育儿工具.png"),
                 require("@/assets/images/phone/教育/教育首页.png"),
-                require("@/assets/images/phone/育儿/育儿工具.png")
             ],
             srcList2: [
                 require("@/assets/images/phone/婚礼/婚礼.png"),
                 require("@/assets/images/phone/孕育/社交 怀孕周期.png"),
+                require("@/assets/images/phone/育儿/育儿社交1.png"),
                 require("@/assets/images/phone/教育/视频推荐页.png"),
-                require("@/assets/images/phone/育儿/育儿社交1.png")
             ],
             swiperOption: {
                 // some swiper options/callbacks
                 // 所有的参数同 swiper 官方 api 参数
                 // ...
                 noSwiping : true,
-                // autoplay: {
-                //     delay: 3000, //自动切换的时间间隔，单位ms
-                //     // stopOnLastSlide: false, //当切换到最后一个slide时停止自动切换
-                //     stopOnLastSlide: false, //如果设置为true，当切换到最后一个slide时停止自动切换。
-                //     disableOnInteraction: false, //用户操作swiper之后，是否禁止autoplay。
-                //     reverseDirection: false, //开启反向自动轮播。
-                //     waitForTransition: true, //等待过渡完毕。自动切换会在slide过渡完毕后才开始计时。
+                autoplay: {
+                    delay: 3000, //自动切换的时间间隔，单位ms
+                    // stopOnLastSlide: false, //当切换到最后一个slide时停止自动切换
+                    stopOnLastSlide: false, //如果设置为true，当切换到最后一个slide时停止自动切换。
+                    disableOnInteraction: false, //用户操作swiper之后，是否禁止autoplay。
+                    reverseDirection: false, //开启反向自动轮播。
+                    waitForTransition: true, //等待过渡完毕。自动切换会在slide过渡完毕后才开始计时。
+                },
+                // 延迟加载
+                // lazy: {
+                //     loadPrevNext: false,
                 // },
                 loop: true,
                 pagination: {
@@ -181,7 +192,11 @@ export default {
         };
     },
   watch:{},
-  computed:{},
+  computed:{
+    swiper() {
+        return this.$refs.mySwiper.swiper;
+    }
+  },
   methods:{
         listItemClick(index) {
             this.currentIndex = index;
@@ -323,6 +338,7 @@ export default {
 .wrapper-1 .content .imgbox
     position relative
     cursor pointer
+    font-size 0
 .wrapper-1 .content .imgbox .mask
     position absolute
     background-color rgba(0,0,0,0.3)

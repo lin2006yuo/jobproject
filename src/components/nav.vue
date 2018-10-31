@@ -1,14 +1,18 @@
 <template>
-    <nav ref="topnav" :class="{notToTop: !isTop}">
+    <nav 
+        ref="topnav" 
+        :class="{notToTop: !isTop}" 
+        :style="{boxShadow: shadow ? '0 1px 8px 0px rgba(0,0,0,0.2)' : '',backgroundColor: bgColor}"
+    >
         <div class="nav-wrapper clearfix">
             <a class="logo">
-                <img src="@/assets/images/logo.png" alt="">
+                <img :src="logoUrl" alt="">
             </a>
-            <ul class="navlist">
-                <div class="item"><a href="index.html">首页</a></div>
-                <div class="item"><a href="about.html">关于我们</a></div>
-                <div class="item"><a href="https://angelswing.com.cn/angelproject/public/static/saas/login.html">新媒体SAAS平台</a></div>
-                <div class="item"><a href="join.html">加入我们</a></div>
+            <ul class="navlist" ref="ul_list">
+                <div class="item"><a :style="{color: color}" href="index.html">首页</a></div>
+                <div class="item"><a :style="{color: color}" href="about.html">关于我们</a></div>
+                <div class="item"><a :style="{color: color}" href="login.html">新媒体SAAS平台</a></div>
+                <div class="item"><a :style="{color: color}" href="join.html">加入我们</a></div>
             </ul>
         </div>
     </nav>
@@ -16,7 +20,28 @@
 
 <script type="text/ecmascript-6">
 import { debounce,throttle } from 'assets/js/util.js'
+import logoBlue from '@/assets/images/logo_blue.png'
+import logoRed from '@/assets/images/logo.png'
+
 export default {
+    props: {
+        logo: {
+            type: String,
+            default: 'red'
+        },
+        color: {
+            type: String,
+            default: '#fff'
+        },
+        shadow:{
+            tyle: Boolean,
+            default: false
+        },
+        bgColor: {
+            type: String,
+            default: null
+        }
+    },
     data() {
         return {
             isTop: true,
@@ -26,6 +51,17 @@ export default {
     mounted(){
         window.addEventListener('scroll', debounce(this.handleScroll,100))
         this.topnav = this.$refs.topnav
+
+        // 修改头部a标签颜色  
+    },
+    computed: {
+        logoUrl(){
+            if(this.logo === 'blue'){
+                return logoBlue
+            }else{
+                return logoRed
+            }
+        }
     },
     components: {},
     methods: {
@@ -58,10 +94,8 @@ export default {
 @import '~assets/css/variable.styl'
 
 .notToTop
-    background-color #fff
+    background-color $color-theme
     box-shadow 0 1px 5px 0 rgba(0,0,0,0.2)
-    .nav-wrapper .navlist .item a
-        color #555
 nav
     position fixed
     width 100%
@@ -92,6 +126,7 @@ nav
     font-weight bold
     padding 0 20px
     cursor pointer
+    font-size 16px
 .nav-wrapper .navlist .item a
     color #fff
 </style>

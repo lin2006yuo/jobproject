@@ -3,7 +3,7 @@ import Vue from 'vue'
 // 视图
 import Main from '../views/main'
 import Page from '../views/page'
-import Test from '../views/test'
+import detailPage from '../views/detailPage'
 
 Vue.use(VueRouter)
 export default new VueRouter({
@@ -17,6 +17,11 @@ export default new VueRouter({
             path: '/page',
             name: 'page',
             component: Page
+        },
+        {
+            path: 'detailPage',
+            name: 'detailPage',
+            component: detailPage
         }
         // {
         //     path: '/',

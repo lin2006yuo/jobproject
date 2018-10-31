@@ -1,6 +1,11 @@
 <template>
     <div class="index">
-        <navigator></navigator>
+        <navigator 
+            :color="$route.name === 'page' || $router.name === 'detailPage'? '#555' : '#fff'"
+            :shadow="$route.name === 'page' || $router.name === 'detailPage'? true : false"
+            :bgColor="$route.name === 'page' || $router.name === 'detailPage'? '#fff' : ''"
+            :logo="$route.name === 'page' || $router.name === 'detailPage'? 'blue' : 'red'"
+        ></navigator>
         <router-view @scorll="scorllHandle"></router-view>
     </div>
 </template>
