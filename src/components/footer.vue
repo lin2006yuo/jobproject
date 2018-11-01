@@ -22,7 +22,7 @@
                 <p class="contact">加入我们：HR@Angelswing.com.cn</p>
                 <p class="contact">联系天使：Help@Angelswing.com.cn</p>
                 <p class="item join-item"><a href="#">加入我们</a></p>
-                <p class="contact">我们重视每一位员工，期待共同成长，<br>共同进步，为美好的明天而奋斗。</p>
+                <p class="contact" style="line-height: 20px;font-size: 12px">我们重视每一位员工，期待共同成长，<br>共同进步，为美好的明天而奋斗。</p>
             </ul>
             <ul class="list" style="margin: 0 28px">
                 <p class="title"><a href="#">关注我们</a></p>
@@ -57,7 +57,7 @@ export default {
 .footer
     width 100%
     background-color #2e3642
-    padding 40px 0
+    padding 60px 0
     position relative
     z-index 1000
 .footer .box
@@ -97,6 +97,6 @@ export default {
 .contact-item
     margin-bottom 15px !important
 .join-item
-    margin-top 15px !important
+    margin-top 40px !important
     margin-bottom 15px !important
 </style>

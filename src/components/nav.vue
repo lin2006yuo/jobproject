@@ -6,7 +6,8 @@
     >
         <div class="nav-wrapper clearfix">
             <a class="logo">
-                <img :src="logoUrl" alt="">
+                <img src="~assets/images/logo_blue.png" v-show="!isTop" alt="black">
+                <img :src="logoUrl" v-show="isTop" alt="white">
             </a>
             <ul class="navlist" ref="ul_list">
                 <div class="item"><a :style="{color: color}" href="index.html">首页</a></div>
@@ -21,17 +22,17 @@
 <script type="text/ecmascript-6">
 import { debounce,throttle } from 'assets/js/util.js'
 import logoBlue from '@/assets/images/logo_blue.png'
-import logoRed from '@/assets/images/logo.png'
+import logoBlueWhite from '@/assets/images/logo_blue_white.png'
 
 export default {
     props: {
         logo: {
             type: String,
-            default: 'red'
+            default: 'blue'
         },
         color: {
             type: String,
-            default: '#fff'
+            default: '#eaeaea'
         },
         shadow:{
             tyle: Boolean,
@@ -57,9 +58,9 @@ export default {
     computed: {
         logoUrl(){
             if(this.logo === 'blue'){
-                return logoBlue
+                return logoBlueWhite
             }else{
-                return logoRed
+                return logoBlue
             }
         }
     },
@@ -94,8 +95,11 @@ export default {
 @import '~assets/css/variable.styl'
 
 .notToTop
-    background-color $color-theme
+    background-color #fff
     box-shadow 0 1px 5px 0 rgba(0,0,0,0.2)
+    .navlist
+        a
+            color #666 !important
 nav
     position fixed
     width 100%

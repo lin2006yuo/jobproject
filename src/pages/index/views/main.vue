@@ -222,8 +222,8 @@ export default {
              */
             this.$router.push({
                 name: 'page',
-                query: {
-                    index: index
+                params: {
+                    id: index, //模块ID           
                 }
             })
         },
@@ -238,7 +238,9 @@ export default {
   },
   created(){},
   mounted(){
-      
+      this.$Lazyload.$once('loaded', function ({ el, src }) {
+         console.log('图片加载完成')
+    })
   }
 }
 </script>

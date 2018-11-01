@@ -12,27 +12,24 @@
             </ul>
         </div> -->
         <!-- 右 -->
+        <!-- 菜单 -->
         <ul class="page-menu">
-          <li class="page-menu-item" :class="{menuItemInedex: curMenuItemIndex === 1}" @click="menuItemClickHandle(1)">
+          <li v-for="(item, index) in topicInfo.menuList" :key="index" class="page-menu-item" :class="{menuItemInedex: curMenuItemIndex === (index+1)}" @click="menuItemClickHandle(index + 1)">
               <!-- <transition name="scale"><i class="iconfont icon-hunli-1" v-show="curMenuItemIndex === 1"></i></transition> -->
-              <div class="iconbox"><i class="iconfont sp-icon icon-hunli-1" ></i></div>
-              婚纱</li>
-          <li class="page-menu-item" :class="{menuItemInedex: curMenuItemIndex === 2}" @click="menuItemClickHandle(2)">
-              <!-- <transition name="scale"><i class="iconfont icon-hunli-3" v-show="curMenuItemIndex === 2"></i></transition> -->
+              <div class="iconbox"><i class="iconfont sp-icon" :class="[item.icon]"></i></div>
+              {{item.name}}</li>
+          <!-- <li class="page-menu-item" :class="{menuItemInedex: curMenuItemIndex === 2}" @click="menuItemClickHandle(2)">
               <div class="iconbox"><i class="iconfont sp-icon icon-hunli-3" ></i></div>
               婚礼场地</li>
           <li class="page-menu-item" :class="{menuItemInedex: curMenuItemIndex === 3}" @click="menuItemClickHandle(3)">
-              <!-- <transition name="scale"><i class="iconfont icon-lifuzhuanhuan" v-show="curMenuItemIndex === 3"></i></transition> -->
               <div class="iconbox"><i class="iconfont sp-icon icon-lifuzhuanhuan" ></i></div>
               伴娘礼服</li>
           <li class="page-menu-item" :class="{menuItemInedex: curMenuItemIndex === 4}" @click="menuItemClickHandle(4)">
-              <!-- <transition name="scale"><i class="iconfont icon-hunli-2" v-show="curMenuItemIndex === 4"></i></transition> -->
               <div class="iconbox"><i class="iconfont sp-icon icon-hunli-2" ></i></div>
               花束</li>
           <li class="page-menu-item" :class="{menuItemInedex: curMenuItemIndex === 5}" @click="menuItemClickHandle(5)">
-              <!-- <transition name="scale"><i class="iconfont icon-hunli-" v-show="curMenuItemIndex === 5"></i></transition> -->
               <div class="iconbox"><i class="iconfont sp-icon icon-hunli-"></i></div>
-              钻戒</li>
+              钻戒</li> -->
         </ul>
             <vue-waterfall-easy 
                 ref="waterfall"
@@ -48,8 +45,8 @@
                     <p class="page-intro">高端婚礼策划</p>
                 </div> -->
                 <div slot="imgheader" style="margin-top: 164px;text-align:center">
-                    <p class="page-title">婚礼素材的采集者</p>
-                    <p class="page-intro">高端婚礼策划,定制属于你的美</p>
+                    <p class="page-title">{{topicInfo.topicTitle}}</p>
+                    <p class="page-intro">{{topicInfo.topicIntro}}</p>
                 </div>
                 <div class="img-info" slot-scope="props">
                     <p class="some-info">第{{props.index+1}}张图片</p>
@@ -78,11 +75,65 @@ export default {
     return {
         imgsArr: [],
         count: 1,
-        curMenuItemIndex: 1
+        curMenuItemIndex: 1,
+        curTopic: 1  //当前模块
     }
   },
   watch:{},
-  computed:{},
+  computed:{
+      topicInfo(){
+          if(this.curTopic === 1) {
+            return {
+                topicTitle: '婚礼素材的采集者',
+                topicIntro: '高端婚礼策划,定制属于你的美',
+                menuList: [
+                    {name: '婚纱', icon: 'icon-hunli-1'},
+                    {name: '婚礼现场', icon: 'icon-hunli-3'},
+                    {name: '伴娘礼服', icon: 'icon-lifuzhuanhuan'},
+                    {name: '花束', icon: 'icon-hunli-2'},
+                    {name: '钻戒', icon: 'icon-hunli-'},
+                ]
+            }
+          }else if(this.curTopic === 2) {
+            return {
+                topicTitle: '孕育',
+                topicIntro: '生命的初始，新纪元的诞生',
+                menuList: [
+                    {name: '备孕', icon:''},
+                    {name: '怀孕', icon:''},
+                    {name: '产后', icon:''},
+                ]
+            }        
+          }else if(this.curTopic ===3 ){
+              return {
+                topicTitle: '育儿',
+                topicIntro: '培养天赋，成就未来',
+                menuList: [
+                    {name: '0-1岁', icon:''},
+                    {name: '1-3岁', icon:''},
+                    {name: '3-5岁', icon:''},
+                ]   
+              }
+          }else{
+              return {
+                topicTitle: '家庭教育',
+                topicIntro: '为生之道，为人之道，为学之道',
+                menuList: [
+                    {name: '学习方法', icon:''},
+                    {name: '课外辅导', icon:''},
+                    {name: '兴趣班', icon:''},
+                    {name: '娱乐互动', icon:''},
+                    {name: '家庭旅行', icon:''},
+                    {name: '心理健康', icon:''},
+                    {name: '社交能力', icon:''},
+                    {name: '综合素养', icon:''},
+                    {name: '道德素养', icon:''},
+                    {name: '课内成绩', icon:''},
+                ]   
+              }  
+          }
+      }
+  },
   methods:{
 　　　initImgsArr (n, m) {   //初始化图片数组的方法，把要加载的图片装入
 　　　　var arr = []
@@ -90,7 +141,7 @@ export default {
 // 　　　　　　arr.push({ src: `https://dummyimage.com/200x${i+1}00/ffffff/000000`, link: '', info: '一些图片描述文字' }) //src为加载的图片的地址、link为超链接的链接地址、　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　//info为自定义的图片展示信息，请根据自己的情况自行填写
               arr.push({ src: `static/img/${i+1}.jpg`, info: i, id: i })
 　　　　}
-        console.log(this.imgsArr);
+        // console.log(this.imgsArr);
         
 　　　　return arr
 　　　},
@@ -109,10 +160,20 @@ export default {
             this.curMenuItemIndex = index
         },
         clickHandle(event, { index, value }){
-            this.$router.push({
-                name: 'detailPage'
-            })
-            console.log(event, index, value)
+            // this.$router.push({
+            //     name: 'detailPage',
+            //     params: {
+            //         id: 'lxy'
+            //     }
+            // })
+            let {href} = this.$router.resolve({
+                name: 'detailPage',
+                query: {
+                    id: 'lxy'
+                }
+            });
+            window.open(href, '_blank');
+            // console.log(event, index, value)
         }
   },
   created(){
@@ -124,6 +185,14 @@ export default {
     //     pagescroll.addEventListener('scroll', debounce(() => {
     //         this.$emit('scroll', 1)
     //     }, 100))
+    /**
+     * @param
+     * 1. 婚礼
+     * 2. 怀孕
+     * 3. 育儿
+     * 4. 家庭教育
+     */
+      this.curTopic = this.$route.params.id
   }
 }
 </script>

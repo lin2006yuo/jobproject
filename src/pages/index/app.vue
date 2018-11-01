@@ -1,10 +1,10 @@
 <template>
     <div class="index">
         <navigator 
-            :color="$route.name === 'page' || $router.name === 'detailPage'? '#555' : '#fff'"
-            :shadow="$route.name === 'page' || $router.name === 'detailPage'? true : false"
-            :bgColor="$route.name === 'page' || $router.name === 'detailPage'? '#fff' : ''"
-            :logo="$route.name === 'page' || $router.name === 'detailPage'? 'blue' : 'red'"
+            :color="$route.name === 'page' || $route.name === 'detailPage'? '#555' : '#eaeaea'"
+            :shadow="$route.name === 'page' || $route.name === 'detailPage'? true : false"
+            :bgColor="$route.name === 'page' || $route.name === 'detailPage'? '#fff' : ''"
+            :logo="$route.name === 'page' || $route.name === 'detailPage'? 'xxx' : 'blue'"
         ></navigator>
         <router-view @scorll="scorllHandle"></router-view>
     </div>
