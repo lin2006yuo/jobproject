@@ -11,7 +11,7 @@ import router from './router'
 import '@/assets/fonts/second/iconfont.css'
 import "babel-polyfill"
 //loading
-import loading from '@/assets/images/loading.gif'
+import loading from '@/assets/images/fff.png'
 
 Vue.use(VueLazyload, {
     preLoad: 1.3,

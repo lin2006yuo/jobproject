@@ -28,10 +28,11 @@
                 <div class="content-wrapper clearfix">
                     <div class="content" v-for="(item, index) in content_box_list" :key="index">
                         <!-- <div class="imgbox" @click="contentBoxHandle(index + 1)"> -->
-                        <div class="imgbox" @click="contentBoxHandle(index + 1)">
-                            <img v-lazy="item.img" alt="">
-                            <div class="mask"></div>
-                            <div class="text">{{item.text}}</div>
+                        <!-- <div class="imgbox" @click="contentBoxHandle(index + 1)">-->
+                        <div class="imgbox">
+                            <img v-lazy="item.img" alt="" >
+                            <div class="mask" v-show="topicImgFinish"></div>
+                            <div class="text" v-show="topicImgFinish">{{item.text}}</div>
                         </div>
                         <div class="intro">{{item.intro}}</div>
                     </div>
@@ -104,6 +105,7 @@ export default {
             mySwiper: "",
             currentIndex: 0,
             bounceTimer: null,
+            topicImgFinish: false,
             bannerImgList: [
                 {
                     url: require("@/assets/images/slider1.jpg"),
@@ -238,9 +240,10 @@ export default {
   },
   created(){},
   mounted(){
-      this.$Lazyload.$once('loaded', function ({ el, src }) {
-         console.log('图片加载完成')
-    })
+      this.$Lazyload.$once('loaded', ({el, src}) => {
+          console.log('topic图片加载完成')
+          this.topicImgFinish = true
+      })
   }
 }
 </script>

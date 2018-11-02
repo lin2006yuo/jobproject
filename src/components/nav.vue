@@ -10,10 +10,11 @@
                 <img :src="logoUrl" v-show="isTop" alt="white">
             </a>
             <ul class="navlist" ref="ul_list">
-                <div class="item"><a :style="{color: color}" href="index.html">首页</a></div>
-                <div class="item"><a :style="{color: color}" href="about.html">关于我们</a></div>
-                <div class="item"><a :style="{color: color}" href="login.html">新媒体SAAS平台</a></div>
-                <div class="item"><a :style="{color: color}" href="join.html">加入我们</a></div>
+                <div class="item"><a :style="{color: color}" style="font-size: 17px" href="index.html">首页</a></div>
+                <div class="item"><a :style="{color: color}" style="font-size: 17px" href="about.html">关于我们</a></div>
+                <div class="item"><a :style="{color: color}" style="font-size: 17px" href="login.html">新媒体SAAS平台</a></div>
+                <div class="item"><a :style="{color: color}" style="font-size: 17px" href="join.html">加入我们</a></div>
+                <div class="item"><a :style="{color: color}" style="font-size: 17px" href="partner.html">招募合作</a></div>
             </ul>
         </div>
     </nav>
@@ -100,6 +101,7 @@ export default {
     .navlist
         a
             color #666 !important
+            font-size 17px !important
 nav
     position fixed
     width 100%

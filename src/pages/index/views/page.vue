@@ -99,9 +99,9 @@ export default {
                 topicTitle: '孕育',
                 topicIntro: '生命的初始，新纪元的诞生',
                 menuList: [
-                    {name: '备孕', icon:''},
-                    {name: '怀孕', icon:''},
-                    {name: '产后', icon:''},
+                    {name: '备孕', icon:'icon-yunjia'},
+                    {name: '怀孕', icon:'icon-yunfu'},
+                    {name: '产后', icon:'icon-mother'},
                 ]
             }        
           }else if(this.curTopic ===3 ){
@@ -109,9 +109,9 @@ export default {
                 topicTitle: '育儿',
                 topicIntro: '培养天赋，成就未来',
                 menuList: [
-                    {name: '0-1岁', icon:''},
-                    {name: '1-3岁', icon:''},
-                    {name: '3-5岁', icon:''},
+                    {name: '0-1岁', icon:'icon--baby-'},
+                    {name: '1-3岁', icon:'icon-yinger'},
+                    {name: '3-5岁', icon:'icon-ertong'},
                 ]   
               }
           }else{
@@ -119,16 +119,16 @@ export default {
                 topicTitle: '家庭教育',
                 topicIntro: '为生之道，为人之道，为学之道',
                 menuList: [
-                    {name: '学习方法', icon:''},
-                    {name: '课外辅导', icon:''},
-                    {name: '兴趣班', icon:''},
-                    {name: '娱乐互动', icon:''},
-                    {name: '家庭旅行', icon:''},
-                    {name: '心理健康', icon:''},
-                    {name: '社交能力', icon:''},
-                    {name: '综合素养', icon:''},
-                    {name: '道德素养', icon:''},
-                    {name: '课内成绩', icon:''},
+                    {name: '学习方法', icon:'icon-xuexishuben'},
+                    {name: '课外辅导', icon:'icon-mingshifudao'},
+                    {name: '兴趣班', icon:'icon-wudao2'},
+                    {name: '娱乐互动', icon:'icon-navicon-hdbk'},
+                    {name: '家庭旅行', icon:'icon-feiji'},
+                    {name: '心理健康', icon:'icon-jiankangxian'},
+                    {name: '社交能力', icon:'icon-shejiao'},
+                    {name: '综合素养', icon:'icon-zongheceping'},
+                    {name: '道德素养', icon:'icon-deyutiandi'},
+                    {name: '课内成绩', icon:'icon-chengjiguanli'},
                 ]   
               }  
           }
@@ -252,11 +252,22 @@ export default {
     margin-top -200px
     z-index 100
     cursor pointer
+    height 455px !important
+    overflow-y auto
+    &::-webkit-scrollbar
+        width: 6px;
+    &::-webkit-scrollbar-track
+        border-radius: 5px;
+        background-color: #f5f5f5;
+    &::-webkit-scrollbar-thumb
+        border-radius: 5px;
+        background: #ccc;
     .page-menu-item
         line-height 80px
         font-size 18px
         color #bbbbbb
         border-bottom 1px solid #e1e1e1
+        margin-right 10px !important
         &.menuItemInedex 
             color #7cbafe    
             .iconbox

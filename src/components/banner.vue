@@ -1,7 +1,9 @@
 <template>
     <div class="banner" :style="{backgroundImage: 'url('+src+')'}">
         <div class="mask"></div>
-        <div class="b-text">{{text}}</div>
+        <div class="b-text">{{text}}
+            <div class="mini-text">{{miniText}}</div>
+        </div>
     </div>
 </template>
 
@@ -11,7 +13,7 @@ export default {
         return {
         };
     },
-    props: ['src','text'],
+    props: ['src','text','miniText'],
     mounted(){
         console.log(this.text)
     },
@@ -43,4 +45,10 @@ export default {
     color #fff
     z-index 20
     white-space nowrap
+.mini-text
+    color #fff
+    font-size 42px
+    text-align center
+    margin-top 30px
+    letter-spacing 38px
 </style>
