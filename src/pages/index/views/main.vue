@@ -31,7 +31,7 @@
                         <div class="imgbox" @click="contentBoxHandle(index + 1)">
                         <!-- <div class="imgbox"> -->
                             <img :src="item.img" alt="" >
-                            <div class="mask"></div>
+                            <!-- <div class="mask"></div> -->
                             <div class="text">{{item.text}}</div>
                         </div>
                         <div class="intro">{{item.intro}}</div>
@@ -174,21 +174,25 @@ export default {
                 {
                     text: '婚礼',
                     img: '',
+                    more: '高端婚礼策划,定制属于你的美',
                     intro: '我们关注每一个幸福的婚礼，提供婚礼方案的私家定制。帮助您制定婚礼的规划、预算和礼金管理，以及与亲朋好友的亲密社交。为您制作有创意、精美的婚礼请帖。'
                 },
                 {
                     text: '怀孕',
                     img: '',
+                    more: '生命的初始，新纪元的诞生',
                     intro: '您的宝宝成长如何？这里有专业的意见。我们也打造了一个孕育期女性的社群平台，您在这里可以发现和你同处一个阶段的孕期女性。一起探讨和关心孕期问题。'
                 },
                 {
                     text: '育儿',
                     img: '',
+                    more: '培养天赋，成就未来',
                     intro: '天使之翼为宝宝的哺育提供领域内专业的观点，帮助您做好时间管理、日记记录,以及宝宝用药情况等等。在社区内，您也可以看到其他妈妈的心得体会。'
                 },
                 {
                     text: '家庭教育',
                     img: '',
+                    more: '为生之道，为人之道，为学之道',
                     intro: '来听听大咖都是怎么谈家庭教育的，听他们的专业意见，天使之翼也帮助您规划好家庭教育，同时也为您提供一个与其他家长共同沟通、分享的平台。'
                 },
             ]
@@ -232,7 +236,7 @@ export default {
              */
             this.$router.push({
                 name: 'page',
-                params: {
+                query: {
                     id: index, //模块ID           
                 }
             })
@@ -352,19 +356,23 @@ export default {
 .wrapper-1 .content:nth-child(4), .wrapper-1 .content:nth-child(2)
     margin-right 0
 .wrapper-1 .content img
-    width 100%
+    width calc(100% + 50px)
+    transform scale(1)
+    transition opacity 0.35s, transform 0.35s
+    opacity 0.7
+.wrapper-1 .content .imgbox:hover img
+    transform scale(1.05)
+    opacity 0.6
+.wrapper-1 .content .imgbox:hover .more
+    transform: translate3d(-50%, 0px, 0);
+    transition-delay: 0.1s;
+    opacity 1
 .wrapper-1 .content .imgbox
     position relative
     cursor pointer
     font-size 0
-.wrapper-1 .content .imgbox .mask
-    position absolute
-    background-color rgba(0,0,0,0.3)
-    z-index 1
-    left 0
-    top 0
-    width 100%
-    height 100%
+    background #000
+    overflow hidden
 .wrapper-1 .content .imgbox .text
     color #fff
     position absolute
@@ -372,7 +380,18 @@ export default {
     top 50%
     z-index 999
     font-size 48px
-    transform translate(-50%, -50%);
+    transform translate(-50%, -50%)
+.wrapper-1 .content .imgbox .more
+    white-space nowrap
+    color #e6e6e6
+    position absolute
+    left 50%
+    top 50%
+    z-index 999
+    font-size 22px
+    transform translate3d(-50%,23px,0)
+    opacity 0
+    transition opacity 0.2s,transform .35s
 .wrapper-1 .content .intro
     line-height 21px
     padding 20px 20px 45px

@@ -275,7 +275,7 @@ export default {
     width: 850px;
     height: 966px;
     left: 0;
-    top: -60px;
+    top: -100px;
     box-shadow: 0 0 30px 0 rgba(0,0,0,0.3);
     transform: translateX(-50%);
     background-color: #fff;

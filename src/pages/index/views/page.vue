@@ -64,6 +64,8 @@
 import vueWaterfallEasy from '@/components/vue-waterfall-easy'
 import { debounce,throttle } from 'assets/js/util.js'
 import Mfooter from '@/components/footer.vue'
+//文章接口
+import {getArticle} from '@/api/article'
 
 export default {
   components:{
@@ -181,10 +183,6 @@ export default {
 　　　　this.fetchImgsArr = this.initImgsArr(20, 30) // 模拟每次请求的下一批新的图片的数据数据
   },
   mounted(){
-    //   var pagescroll = document.querySelector('.vue-waterfall-easy-scroll')
-    //     pagescroll.addEventListener('scroll', debounce(() => {
-    //         this.$emit('scroll', 1)
-    //     }, 100))
     /**
      * @param
      * 1. 婚礼
@@ -192,7 +190,12 @@ export default {
      * 3. 育儿
      * 4. 家庭教育
      */
-      this.curTopic = this.$route.params.id
+      this.curTopic = this.$route.query.id
+      getArticle(this.curTopic, 1, "婚礼").then(res => {
+          if(res.code === 1){
+              console.log(res)
+          }
+      })
       //取消loading动画
       this.$emit('page')
   }

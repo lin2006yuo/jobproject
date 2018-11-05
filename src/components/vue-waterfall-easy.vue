@@ -75,7 +75,7 @@
     }
 
     a.img-inner-box {
-      box-shadow: 0 3px 11px 2px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 0px 26px -3px rgba(0,0,0,0.2)
       border-radius: 4px;
       cursor pointer
     }
