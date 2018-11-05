@@ -97,6 +97,6 @@ export default {
 .contact-item
     margin-bottom 15px !important
 .join-item
-    margin-top 40px !important
+    margin-top 43px !important
     margin-bottom 15px !important
 </style>

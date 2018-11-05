@@ -169,10 +169,6 @@
                     <img src="@/assets/images/doll5.png" alt="">
                     <p class="text">销售</p>
                 </li>
-                <li class="doll-item">
-                    <img src="@/assets/images/doll6.jpg" alt="">
-                    <p class="text">管理实习生培训岗</p>
-                </li>
             </ul>
         </div>
         <mfooter></mfooter>
@@ -330,7 +326,7 @@ export default {
     font-size 0
 }
 .wrapper .doll-list .doll-item {
-    width 12%
+    width 15%
     display inline-block
     position relative
     margin-bottom: 100px;

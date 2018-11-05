@@ -15,7 +15,7 @@
                     <li class="w-l-item">线上线下结合</li>
                     <li class="w-l-item">自主研发人工智能（AI）搜索</li>
                     <li class="w-l-item">海量媒体资源，精准定向投放，自动化推广交易平台</li>
-                    <li class="w-l-item">综合行业影响力，提供多平台新媒体</li>
+                    <li class="w-l-item">综合行业影响力，提供多平台新媒体服务</li>
                     <li class="w-l-item">广告转化，精准营销</li>
                 </ul>
             </div>
@@ -326,7 +326,7 @@ overflow-x: hidden;
   float: right;
   vertical-align: middle;
   color: #999;
-  font-size: 8px;
+  font-size: 10px;
 }
 .l-container .l-wrapper .w-r .w-r-box .register {
   cursor: pointer;

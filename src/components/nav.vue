@@ -14,7 +14,7 @@
                 <div class="item"><a :style="{color: color}" style="font-size: 17px" href="about.html">关于我们</a></div>
                 <div class="item"><a :style="{color: color}" style="font-size: 17px" href="login.html">新媒体SAAS平台</a></div>
                 <div class="item"><a :style="{color: color}" style="font-size: 17px" href="join.html">加入我们</a></div>
-                <div class="item"><a :style="{color: color}" style="font-size: 17px" href="partner.html">招募合作</a></div>
+                <div class="item"><a :style="{color: color}" style="font-size: 17px" href="partner.html">招募合作商</a></div>
             </ul>
         </div>
     </nav>
@@ -67,18 +67,15 @@ export default {
     },
     components: {},
     methods: {
-        handleScroll(){
-            console.log(1);
-            
+        handleScroll(){        
             let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
-            if(scrollTop === 0){
+            if(scrollTop <= 550){
                 this.isTop = true
             }else{
                 this.isTop = false
             }
             if(!this.getStart){
                 if(scrollTop >= 1139){
-                    console.log('1139');
                     this.$emit('start')
                     this.getStart = true
                 }

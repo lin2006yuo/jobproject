@@ -116,6 +116,7 @@ export default {
   created() {},
   mounted() {
       // console.log(this.$route.query.id)  //路由传递参数
+      this.$emit('detailPage')
   }
 };
 </script>

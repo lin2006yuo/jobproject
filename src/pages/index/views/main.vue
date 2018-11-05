@@ -28,11 +28,11 @@
                 <div class="content-wrapper clearfix">
                     <div class="content" v-for="(item, index) in content_box_list" :key="index">
                         <!-- <div class="imgbox" @click="contentBoxHandle(index + 1)"> -->
-                        <!-- <div class="imgbox" @click="contentBoxHandle(index + 1)">-->
-                        <div class="imgbox">
-                            <img v-lazy="item.img" alt="" >
-                            <div class="mask" v-show="topicImgFinish"></div>
-                            <div class="text" v-show="topicImgFinish">{{item.text}}</div>
+                        <div class="imgbox" @click="contentBoxHandle(index + 1)">
+                        <!-- <div class="imgbox"> -->
+                            <img :src="item.img" alt="" >
+                            <div class="mask"></div>
+                            <div class="text">{{item.text}}</div>
                         </div>
                         <div class="intro">{{item.intro}}</div>
                     </div>
@@ -106,6 +106,7 @@ export default {
             currentIndex: 0,
             bounceTimer: null,
             topicImgFinish: false,
+            loadingPicCount: 0,
             bannerImgList: [
                 {
                     url: require("@/assets/images/slider1.jpg"),
@@ -172,28 +173,35 @@ export default {
             content_box_list: [
                 {
                     text: '婚礼',
-                    img: require("@/assets/images/a1.jpg"),
+                    img: '',
                     intro: '我们关注每一个幸福的婚礼，提供婚礼方案的私家定制。帮助您制定婚礼的规划、预算和礼金管理，以及与亲朋好友的亲密社交。为您制作有创意、精美的婚礼请帖。'
                 },
                 {
                     text: '怀孕',
-                    img: require("@/assets/images/a2.jpg"),
+                    img: '',
                     intro: '您的宝宝成长如何？这里有专业的意见。我们也打造了一个孕育期女性的社群平台，您在这里可以发现和你同处一个阶段的孕期女性。一起探讨和关心孕期问题。'
                 },
                 {
                     text: '育儿',
-                    img: require("@/assets/images/a3.jpg"),
+                    img: '',
                     intro: '天使之翼为宝宝的哺育提供领域内专业的观点，帮助您做好时间管理、日记记录,以及宝宝用药情况等等。在社区内，您也可以看到其他妈妈的心得体会。'
                 },
                 {
                     text: '家庭教育',
-                    img: require("@/assets/images/a4.jpg"),
+                    img: '',
                     intro: '来听听大咖都是怎么谈家庭教育的，听他们的专业意见，天使之翼也帮助您规划好家庭教育，同时也为您提供一个与其他家长共同沟通、分享的平台。'
                 },
             ]
         };
     },
-  watch:{},
+  watch:{
+      loadingPicCount(index){
+          if(index >= 4){
+            //   console.log('图片加载完成')
+              this.$emit('picFinish')
+          }
+      }
+  },
   computed:{
     swiper() {
         return this.$refs.mySwiper.swiper;
@@ -240,10 +248,15 @@ export default {
   },
   created(){},
   mounted(){
-      this.$Lazyload.$once('loaded', ({el, src}) => {
-          console.log('topic图片加载完成')
-          this.topicImgFinish = true
-      })
+      //为4个模块图片加载完成绑定监听函数
+      for (let index = 0; index < this.content_box_list.length; index++) {
+          let newImg = new Image()
+          newImg.src = require(`@/assets/images/a${index + 1}.jpg`)
+          newImg.onload = () => {
+              this.content_box_list[index].img = newImg.src
+              this.loadingPicCount ++
+          }
+      }
   }
 }
 </script>

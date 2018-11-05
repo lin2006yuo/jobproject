@@ -193,6 +193,8 @@ export default {
      * 4. 家庭教育
      */
       this.curTopic = this.$route.params.id
+      //取消loading动画
+      this.$emit('page')
   }
 }
 </script>

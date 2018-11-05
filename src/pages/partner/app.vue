@@ -52,22 +52,22 @@
                     <!-- 省份 -->
                     <p class="form-title">合作意向</p>
                     <el-form-item label="合作省份" prop="province">
-                        <el-select v-model="registerForm.province" placeholder="请选择">
+                        <el-select v-model="registerForm.province" placeholder="请选择" @change=proviceChange>
                             <el-option
                             v-for="item in provinceList"
-                            :key="item.value"
-                            :label="item.label"
-                            :value="item.value">
+                            :key="item.adcode"
+                            :label="item.name"
+                            :value="item.adcode">
                             </el-option>
                         </el-select>
                     </el-form-item>
                     <el-form-item label="合作城市" prop="city">
                         <el-select v-model="registerForm.city" placeholder="请选择">
                             <el-option
-                            v-for="item in [{value:'shenzhen',label: '深圳'}]"
-                            :key="item.value"
-                            :label="item.label"
-                            :value="item.value">
+                            v-for="item in cityList"
+                            :key="item.adcode"
+                            :label="item.name"
+                            :value="item.adcode">
                             </el-option>
                         </el-select>
                     </el-form-item>
@@ -137,7 +137,7 @@ import Banner from "@/components/banner";
 import Mfooter from '@/components/footer'
 import img from '@/assets/images/cooperation_banner.jpg'
 //引入中国省份信息js
-import {province} from '@/assets/info/province.js'
+import {getProvince, getCity} from '@/api/city.js'
 
 
 
@@ -148,14 +148,14 @@ export default {
             processList: [
                 {
                     step: '第一步',
-                    text: '注册新媒体SAAS账号',
+                    text: '注册新媒体SAAS平台账号',
                     detail: '输入手机号/邮箱/企业信息注册账号',
                     icon_img: require('@/assets/images/cooper1.png')
                 },
                 {
                     step: '第二步',
                     text: '提交资质',
-                    detail: '上传您的身份证/资质等信息',
+                    detail: '上传您的身份证/营业执照/资质等信息',
                     icon_img: require('@/assets/images/cooper2.png')
                 },
                 {
@@ -197,7 +197,6 @@ export default {
                     label: '其他'
                 },
             ],
-            provinceList: province,
             registerForm: {
                 province: '',
                 city:'',
@@ -210,6 +209,8 @@ export default {
                 phone: '',
                 vcode: ''
             },
+            provinceList: '',
+            cityList: '',
             formText: '下一步',
             curstep: 0,
             registerRules: {
@@ -248,6 +249,12 @@ export default {
     },
     mounted(){
         // window.addEventListener('scroll',this.count)
+        getProvince().then(res => {
+                // console.log(res)
+            if(res.status === '1'){
+                this.provinceList = res.districts[0].districts
+            }
+        })
     },
     computed: {
         curClass(){
@@ -314,6 +321,14 @@ export default {
                 type: 'warning'
             })
             //获取验证码
+        },
+        proviceChange(){
+            getCity(this.registerForm.province).then(res => {
+                this.registerForm.city = ''
+                if(res.status === '1'){
+                    this.cityList = res.districts[0].districts
+                }
+            })
         }
     }
 };
@@ -356,6 +371,7 @@ export default {
                     color #353535
                     font-size 30px
                     font-weight bold
+                    white-space nowrap
                 .p-detail
                     color #838383
                     font-size 16px
