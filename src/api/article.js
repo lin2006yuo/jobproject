@@ -24,6 +24,6 @@ export function getArticle(type, page, topic){
         page: page,
         baby_state: topic
     }).then(res => {
-        return Promise.resolve(res)
+        return Promise.resolve(res.data)
     })
 }

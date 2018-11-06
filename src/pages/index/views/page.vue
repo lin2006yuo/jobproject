@@ -37,8 +37,7 @@
                 :maxCols="3"
                 :imgWidth="300"
                 :ygap="20"
-                @click="clickHandle"
-                @scrollReachBottom="fetchImgsData"
+
                 >
                 <!-- <div slot="waterfall-head" class="waterfall-head">
                     <p class="page-title">婚礼素材的采集者</p>
@@ -49,8 +48,8 @@
                     <p class="page-intro">{{topicInfo.topicIntro}}</p>
                 </div>
                 <div class="img-info" slot-scope="props">
-                    <p class="some-info">第{{props.index+1}}张图片</p>
-                    <p class="some-info">{{props.value.id}}</p>
+                    <p class="some-info">{{props.value.title}}</p>
+                    <!-- <p class="some-info">{{props.value.id}}</p> -->
                 </div>
                 <div slot="waterfall-over">没有啦</div>
                  <div slot="waterfall-footer">
@@ -64,6 +63,7 @@
 import vueWaterfallEasy from '@/components/vue-waterfall-easy'
 import { debounce,throttle } from 'assets/js/util.js'
 import Mfooter from '@/components/footer.vue'
+import { createArticle } from '@/common/article'
 //文章接口
 import {getArticle} from '@/api/article'
 
@@ -84,7 +84,7 @@ export default {
   watch:{},
   computed:{
       topicInfo(){
-          if(this.curTopic === 1) {
+          if(this.curTopic === '1') {
             return {
                 topicTitle: '婚礼素材的采集者',
                 topicIntro: '高端婚礼策划,定制属于你的美',
@@ -96,7 +96,7 @@ export default {
                     {name: '钻戒', icon: 'icon-hunli-'},
                 ]
             }
-          }else if(this.curTopic === 2) {
+          }else if(this.curTopic === '2') {
             return {
                 topicTitle: '孕育',
                 topicIntro: '生命的初始，新纪元的诞生',
@@ -106,7 +106,7 @@ export default {
                     {name: '产后', icon:'icon-mother'},
                 ]
             }        
-          }else if(this.curTopic ===3 ){
+          }else if(this.curTopic ==='3' ){
               return {
                 topicTitle: '育儿',
                 topicIntro: '培养天赋，成就未来',
@@ -137,52 +137,56 @@ export default {
       }
   },
   methods:{
-　　　initImgsArr (n, m) {   //初始化图片数组的方法，把要加载的图片装入
-　　　　var arr = []
-　　　　for (var i = n; i < m; i++) {
-// 　　　　　　arr.push({ src: `https://dummyimage.com/200x${i+1}00/ffffff/000000`, link: '', info: '一些图片描述文字' }) //src为加载的图片的地址、link为超链接的链接地址、　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　//info为自定义的图片展示信息，请根据自己的情况自行填写
-              arr.push({ src: `static/img/${i+1}.jpg`, info: i, id: i })
-　　　　}
-        // console.log(this.imgsArr);
-        
-　　　　return arr
+　　　initImgsArr (n) {   //初始化图片数组的方法，把要加载的图片装入
+// 　　　　var arr = []
+// 　　　　for (var i = n; i < m; i++) {
+//               arr.push({ src: `static/img/${i+1}.jpg`, info: i, id: i })
+// 　　　　}
+        getArticle(this.curTopic, n, "1-2").then(res => {
+            if(res.code === 1){
+                let arr = []
+                res.data.forEach(arti=> {
+                    arr.push(createArticle(arti))
+                })
+                this.imgsArr = this.imgsArr.concat(arr)
+            }
+        })
 　　　},
 　　　fetchImgsData () {
-        this.count ++    //获取新的图片数据的方法，用于页面滚动满足条件时调用
-        if(this.count >= 5){
-          console.log('没有了')
-          this.$refs.waterfall.waterfallOver()
-          return false
-        }
-        console.log('滚动拉取')
-　　　　this.imgsArr = this.imgsArr.concat(this.fetchImgsArr)   //数组拼接，把下一批要加载的图片放入所有图片的数组中
-　　　},
-        menuItemClickHandle(index){
-            this.imgsArr = this.initImgsArr(0, 20) 
-            this.curMenuItemIndex = index
-        },
-        clickHandle(event, { index, value }){
-            // this.$router.push({
-            //     name: 'detailPage',
-            //     params: {
-            //         id: 'lxy'
-            //     }
-            // })
-            let {href} = this.$router.resolve({
-                name: 'detailPage',
-                query: {
-                    id: 'lxy'
-                }
-            });
-            window.open(href, '_blank');
-            // console.log(event, index, value)
+//         this.count ++    //获取新的图片数据的方法，用于页面滚动满足条件时调用
+//         if(this.count >= 5){
+//           console.log('没有了')
+//           this.$refs.waterfall.waterfallOver()
+//           return false
+//         }
+//         console.log('滚动拉取')
+// 　　　　this.imgsArr = this.imgsArr.concat(this.fetchImgsArr)   //数组拼接，把下一批要加载的图片放入所有图片的数组中
+// 　　　},
+//         menuItemClickHandle(index){
+//             this.imgsArr = this.initImgsArr(0, 20) 
+//             this.curMenuItemIndex = index
+//         },
+//         clickHandle(event, { index, value }){
+//             // this.$router.push({
+//             //     name: 'detailPage',
+//             //     params: {
+//             //         id: 'lxy'
+//             //     }
+//             // })
+//             let {href} = this.$router.resolve({
+//                 name: 'detailPage',
+//                 query: {
+//                     id: 'lxy'
+//                 }
+//             });
+//             window.open(href, '_blank');
+//             // console.log(event, index, value)
         }
   },
   created(){
-　　　　this.imgsArr = this.initImgsArr(0, 20)       //初始化第一次（即页面加载完毕时）要加载的图片数据
-　　　　this.fetchImgsArr = this.initImgsArr(20, 30) // 模拟每次请求的下一批新的图片的数据数据
+
   },
-  mounted(){
+  activated(){
     /**
      * @param
      * 1. 婚礼
@@ -190,14 +194,13 @@ export default {
      * 3. 育儿
      * 4. 家庭教育
      */
-      this.curTopic = this.$route.query.id
-      getArticle(this.curTopic, 1, "婚礼").then(res => {
-          if(res.code === 1){
-              console.log(res)
-          }
-      })
+    this.curTopic = this.$route.query.id
+    this.initImgsArr(1)       //初始化第一次（即页面加载完毕时）要加载的图片数据
+// 　　this.fetchImgsArr = this.initImgsArr(20, 30) // 模拟每次请求的下一批新的图片的数据数据
       //取消loading动画
       this.$emit('page')
+  },
+  mounted(){
   }
 }
 </script>
