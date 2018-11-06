@@ -162,7 +162,7 @@
                     <p class="text">前端工程师</p>
                 </li>
                 <li class="doll-item">
-                    <img src="@/assets/images/doll4.jpg" alt="">
+                    <img src="@/assets/images/doll4.png" alt="">
                     <p class="text">销售总监</p>
                 </li>
                 <li class="doll-item">
