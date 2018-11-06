@@ -2,30 +2,30 @@
     <div class="footer">
         <div class="box clearfix">
             <ul class="list">
-                <p class="title"><a href="#">产品</a></p>
+                <p class="title"><a>产品</a></p>
                 <p class="item"><a href="#">婚礼</a></p>
                 <p class="item"><a href="#">孕育</a></p>
                 <p class="item"><a href="#">育儿</a></p>
                 <p class="item"><a href="#">家庭教育</a></p>
             </ul>
             <ul class="list">
-                <p class="title"><a href="#">合作</a></p>
+                <p class="title"><a >合作</a></p>
                 <p class="item"><a href="#">婚礼</a></p>
                 <p class="item"><a href="#">孕育</a></p>
                 <p class="item"><a href="#">育儿</a></p>
                 <p class="item"><a href="#">家庭教育</a></p>
             </ul>
             <ul class="list" style="margin-left: 60px">
-                <p class="title"><a href="#">关于我们</a></p>
-                <p class="item contact-item"><a href="#">联系我们</a></p>
+                <p class="title"><a>关于我们</a></p>
+                <p class="item contact-item"><a>联系我们</a></p>
                 <p class="contact">商务合作：Sales@Angelswing.com.cn</p>
                 <p class="contact">加入我们：HR@Angelswing.com.cn</p>
                 <p class="contact">联系天使：Help@Angelswing.com.cn</p>
-                <p class="item join-item"><a href="#">加入我们</a></p>
+                <p class="item join-item"><a href="join.html">加入我们</a></p>
                 <p class="contact" style="line-height: 20px;font-size: 12px">我们重视每一位员工，期待共同成长，<br>共同进步，为美好的明天而奋斗。</p>
             </ul>
             <ul class="list" style="margin: 0 28px">
-                <p class="title"><a href="#">关注我们</a></p>
+                <p class="title"><a>关注我们</a></p>
                 <div class="codeimg" style="display:inline-block;margin-right: 25px">
                      <img src="@/assets/images/code.png" alt="">
                      <div class="tex">服务号</div>

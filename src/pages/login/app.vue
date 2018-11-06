@@ -326,7 +326,7 @@ overflow-x: hidden;
   float: right;
   vertical-align: middle;
   color: #999;
-  font-size: 10px;
+  font-size: 14px;
 }
 .l-container .l-wrapper .w-r .w-r-box .register {
   cursor: pointer;

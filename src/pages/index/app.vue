@@ -14,7 +14,16 @@
             :logo="$route.name === 'page' || $route.name === 'detailPage'? 'xxx' : 'blue'"
             v-show="showMain"
         ></navigator>
-        <router-view @scorll="scorllHandle" @picFinish="picFinish" v-show="showMain" @detailPage="showMain = true" @page="showMain = true"></router-view>
+        <keep-alive>
+          <router-view 
+            @scorll="scorllHandle" 
+            @picFinish="picFinish" 
+            v-show="showMain" 
+            @detailPage="showMain = true" 
+            @page="showMain = true"
+          >
+          </router-view>
+        </keep-alive>
     </div>
 </template>
 
