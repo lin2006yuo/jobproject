@@ -15,14 +15,14 @@
             v-show="showMain"
         ></navigator>
         <keep-alive>
-          <router-view 
-            @scorll="scorllHandle" 
-            @picFinish="picFinish" 
-            v-show="showMain" 
-            @detailPage="showMain = true" 
-            @page="showMain = true"
-          >
-          </router-view>
+            <router-view 
+              @scorll="scorllHandle" 
+              @picFinish="picFinish" 
+              v-show="showMain" 
+              @detailPage="showMain = true" 
+              @page="showMain = true"
+            >
+            </router-view>
         </keep-alive>
     </div>
 </template>

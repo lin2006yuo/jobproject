@@ -4,7 +4,7 @@
         <div class="article">
           <!-- 标题信息栏 -->
           <div class="article-title">
-            <div class="de-title">新娘手捧花有哪些讲究</div>
+            <div class="de-title">{{article.title}}</div>
             <div class="de-intro-wrapper">
               <div class="de-intro de-views"><i class="iconfont icon-view" style="font-size: 18px;margin-right: 10px"></i> 1052</div>
               <div class="de-intro de-update">更新时间：2018-09-26</div>
@@ -12,23 +12,14 @@
           </div>
           <div class="line"></div>
           <div class="article-wrapper">
-            <div class="article-content">
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptates ea minus, libero necessitatibus eveniet delectus ratione culpa inventore beatae deserunt explicabo sit eius maxime commodi sint fugiat asperiores velit ipsam.
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptates ea minus, libero necessitatibus eveniet delectus ratione culpa inventore beatae deserunt explicabo sit eius maxime commodi sint fugiat asperiores velit ipsam.
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptates ea minus, libero necessitatibus eveniet delectus ratione culpa inventore beatae deserunt explicabo sit eius maxime commodi sint fugiat asperiores velit ipsam.
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptates ea minus, libero necessitatibus eveniet delectus ratione culpa inventore beatae deserunt explicabo sit eius maxime commodi sint fugiat asperiores velit ipsam.
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptates ea minus, libero necessitatibus eveniet delectus ratione culpa inventore beatae deserunt explicabo sit eius maxime commodi sint fugiat asperiores velit ipsam.
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptates ea minus, libero necessitatibus eveniet delectus ratione culpa inventore beatae deserunt explicabo sit eius maxime commodi sint fugiat asperiores velit ipsam.
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptates ea minus, libero necessitatibus eveniet delectus ratione culpa inventore beatae deserunt explicabo sit eius maxime commodi sint fugiat asperiores velit ipsam.
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptates ea minus, libero necessitatibus eveniet delectus ratione culpa inventore beatae deserunt explicabo sit eius maxime commodi sint fugiat asperiores velit ipsam.
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptates ea minus, libero necessitatibus eveniet delectus ratione culpa inventore beatae deserunt explicabo sit eius maxime commodi sint fugiat asperiores velit ipsam.
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptates ea minus, libero necessitatibus eveniet delectus ratione culpa inventore beatae deserunt explicabo sit eius maxime commodi sint fugiat asperiores velit ipsam.
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptates ea minus, libero necessitatibus eveniet delectus ratione culpa inventore beatae deserunt explicabo sit eius maxime commodi sint fugiat asperiores velit ipsam.
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptates ea minus, libero necessitatibus eveniet delectus ratione culpa inventore beatae deserunt explicabo sit eius maxime commodi sint fugiat asperiores velit ipsam.
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptates ea minus, libero necessitatibus eveniet delectus ratione culpa inventore beatae deserunt explicabo sit eius maxime commodi sint fugiat asperiores velit ipsam.
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptates ea minus, libero necessitatibus eveniet delectus ratione culpa inventore beatae deserunt explicabo sit eius maxime commodi sint fugiat asperiores velit ipsam.
+            <div class="article-content" v-html="article.content">
+              <!-- 
+
+                  内容 
+
+              -->
             </div>
-            <div class="article-choose">
+            <div class="article-choose" v-show="false">
               <p class="pagechose last"><a>上一篇文章标题</a></p>
               <p class="pagechose next"><a>下一篇文章标题</a></p>
             </div>
@@ -42,11 +33,7 @@
             </div>
             <div class="line" style="background-color: #eee" v-show="showMore"></div>
             <div class="articles" v-show="showMore">
-              <p class="item"><a>悦人不如悦己：你若盛开，清风自来</a></p>
-              <p class="item"><a>灵感：你值得一去的蜜月旅行地</a></p>
-              <p class="item"><a>灵感：华丽而古朴的科罗拉多婚礼</a></p>
-              <p class="item"><a>人品好的人，自带光芒</a></p>
-              <p class="item"><a>善良，是我们为自己留下的路标</a></p>
+              <p class="item" v-for="(item, index) in moreArticles" :key="index" @click="readMore(item)"><a>{{item.title}}</a></p>
             </div>
           </div>
           <div class="line"></div>
@@ -94,7 +81,9 @@ export default {
     return {
       likeCount: 520,
       like: 'unlike',
-      showMore: false
+      showMore: false,
+      article: {},
+      moreArticles: []
     };
   },
   watch: {},
@@ -111,12 +100,32 @@ export default {
     },
     moreArt(){
       this.showMore = true
+    },
+    //获取文章
+    getArticle(){
+      let article = sessionStorage.getItem('article')
+      this.article = JSON.parse(article)
+    },
+    //获取更多文章数组
+    getMoreArticleArr(){
+      let temp = sessionStorage.getItem('randaomArticle')
+      this.moreArticles = JSON.parse(temp)
+    },
+    //点击更多文章列表
+    readMore(arti){
+      this.article = arti
+      this.showMore = false
+      //返回顶部
+      window.scrollTo(0,0)
     }
   },
   created() {},
-  mounted() {
-      // console.log(this.$route.query.id)  //路由传递参数
+  activated() {
       this.$emit('detailPage')
+      this.getArticle()
+      this.getMoreArticleArr()
+  },
+  mounted() {
   }
 };
 </script>
