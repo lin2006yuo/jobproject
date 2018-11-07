@@ -81,7 +81,7 @@ export default {
         curMenuItemIndex: 1,
         curTopic: 1,  //当前模块
         topicInfo: {},
-        curMiniTitle: '1-2',
+        curMiniTitle: '',
     }
   },
   watch:{
@@ -123,10 +123,10 @@ export default {
                 topicIntro: '高端婚礼策划,定制属于你的美',
                 menuList: [
                     {name: '婚纱', icon: 'icon-hunli-1'},
-                    {name: '婚礼现场', icon: 'icon-hunli-3'},
-                    {name: '伴娘礼服', icon: 'icon-lifuzhuanhuan'},
+                    {name: '婚礼场地', icon: 'icon-hunli-3'},
+                    {name: '礼服', icon: 'icon-lifuzhuanhuan'},
                     {name: '花束', icon: 'icon-hunli-2'},
-                    {name: '钻戒', icon: 'icon-hunli-'},
+                    {name: '戒指', icon: 'icon-hunli-'},
                 ]
             }
           }else if(this.curTopic === 2) {
@@ -144,9 +144,9 @@ export default {
                 topicTitle: '育儿',
                 topicIntro: '培养天赋，成就未来',
                 menuList: [
-                    {name: '1-2岁', icon:'icon--baby-'},
-                    {name: '3-6岁', icon:'icon-yinger'},
-                    {name: '7-12岁', icon:'icon-ertong'},
+                    {name: '1-2个月', icon:'icon--baby-'},
+                    {name: '3-6个月', icon:'icon-yinger'},
+                    {name: '7-12个月', icon:'icon-ertong'},
                 ]   
               }
           }else{
@@ -168,41 +168,53 @@ export default {
               }  
           }
     },
-        menuItemClickHandle(name, index){
-            this.reset()
-            this.curMenuItemIndex = index
-            //如果是育儿模块，则将'岁'字去掉
-            if(this.curTopic === 3){
-                this.curMiniTitle = name.replace('岁', "")
-            }else{
-                this.curMiniTitle = name
-            }
-            //查询数据
-    　　　  this.initImgsArr()
-        },
-        clickHandle(event, { index, value }){
-            //产生更多文章列表，从以获取数据中随机选择
-            let randomArticleArr = []
-            for(let i = 0; i<= 5; i++){
-                let randomIndex = this.randomNumInImgArr()
-                while(randomArticleArr.indexOf(this.imgsArr[randomIndex]) == -1){
-                    randomArticleArr.push(this.imgsArr[randomIndex])
-                }
-            }
-            //向sessionStorage存数据
-            sessionStorage.setItem('article', JSON.stringify(value))
-            sessionStorage.setItem('randaomArticle', JSON.stringify(randomArticleArr))
-            let {href} = this.$router.resolve({
-                name: 'detailPage',
-            });
-            window.open(href, '_blank');
+    menuItemClickHandle(name, index){
+        this.reset()
+        this.curMenuItemIndex = index
+        //如果是育儿模块，则将'岁'字去掉
+        if(this.curTopic === 3){
+            this.curMiniTitle = name.replace('个月', "")
+        }else{
+            this.curMiniTitle = name
         }
+        //查询数据
+　　　  this.initImgsArr()
+    },
+    clickHandle(event, { index, value }){
+        //产生更多文章列表，从以获取数据中随机选择
+        let randomArticleArr = []
+        for(let i = 0; i<= 5; i++){
+            let randomIndex = this.randomNumInImgArr()
+            while(randomArticleArr.indexOf(this.imgsArr[randomIndex]) == -1){
+                randomArticleArr.push(this.imgsArr[randomIndex])
+            }
+        }
+        //向sessionStorage存数据
+        sessionStorage.setItem('article', JSON.stringify(value))
+        sessionStorage.setItem('randaomArticle', JSON.stringify(randomArticleArr))
+        let {href} = this.$router.resolve({
+            name: 'detailPage',
+        });
+        window.open(href, '_blank');
+    },
+    changeMiniTitle(){
+        if(this.curTopic === 1){
+            this.curMiniTitle = '婚纱'
+        }else if(this.curTopic === 2){
+            this.curMiniTitle = '备孕'
+        }else if(this.curTopic === 3){
+            this.curMiniTitle = '1-2'
+        }else {
+            this.curMiniTitle = '学习方法'
+        }
+    }
   },
   created(){
   },
   activated(){
     this.curTopic = parseInt(this.$route.query.id)
     this.changeMenu()
+    this.changeMiniTitle()
     this.reset()
     /**
      * @param
