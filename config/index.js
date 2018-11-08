@@ -19,7 +19,15 @@ module.exports = {
     errorOverlay: true,
     notifyOnErrors: true,
     poll: false, // https://webpack.js.org/configuration/dev-server/#devserver-watchoptions-
-
+    proxyTable: {
+      '/api':{
+          target:'https://angelswing.com.cn',
+          changeOrigin:true,
+          pathRewrite: {
+            '^/api': ''
+          }
+      }
+    },
     
     /**
      * Source Maps

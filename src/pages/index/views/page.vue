@@ -1,35 +1,10 @@
 <template>
   <div class="page">
-        <!-- 左 -->
-        <!-- <div class="page-left">
-            <ul class="page_meus">
-                <li class="page_item">婚纱</li>
-                <li class="page_item">婚礼场地</li>
-                <li class="page_item">伴娘礼服</li>
-                <li class="page_item">花束</li>
-                <li class="page_item">钻戒</li>
-                <li class="page_item">花童礼服</li>
-            </ul>
-        </div> -->
-        <!-- 右 -->
-        <!-- 菜单 -->
         <ul class="page-menu">
           <li v-for="(item, index) in topicInfo.menuList" :key="index" class="page-menu-item" :class="{menuItemInedex: curMenuItemIndex === (index+1)}" @click="menuItemClickHandle(item.name, index + 1)">
               <!-- <transition name="scale"><i class="iconfont icon-hunli-1" v-show="curMenuItemIndex === 1"></i></transition> -->
               <div class="iconbox"><i class="iconfont sp-icon" :class="[item.icon]"></i></div>
               {{item.name}}</li>
-          <!-- <li class="page-menu-item" :class="{menuItemInedex: curMenuItemIndex === 2}" @click="menuItemClickHandle(2)">
-              <div class="iconbox"><i class="iconfont sp-icon icon-hunli-3" ></i></div>
-              婚礼场地</li>
-          <li class="page-menu-item" :class="{menuItemInedex: curMenuItemIndex === 3}" @click="menuItemClickHandle(3)">
-              <div class="iconbox"><i class="iconfont sp-icon icon-lifuzhuanhuan" ></i></div>
-              伴娘礼服</li>
-          <li class="page-menu-item" :class="{menuItemInedex: curMenuItemIndex === 4}" @click="menuItemClickHandle(4)">
-              <div class="iconbox"><i class="iconfont sp-icon icon-hunli-2" ></i></div>
-              花束</li>
-          <li class="page-menu-item" :class="{menuItemInedex: curMenuItemIndex === 5}" @click="menuItemClickHandle(5)">
-              <div class="iconbox"><i class="iconfont sp-icon icon-hunli-"></i></div>
-              钻戒</li> -->
         </ul>
             <vue-waterfall-easy 
                 ref="waterfall"
@@ -40,10 +15,6 @@
                 @scrollReachBottom="initImgsArr"
                 @click="clickHandle"
                 >
-                <!-- <div slot="waterfall-head" class="waterfall-head">
-                    <p class="page-title">婚礼素材的采集者</p>
-                    <p class="page-intro">高端婚礼策划</p>
-                </div> -->
                 <div slot="imgheader" style="margin-top: 164px;text-align:center">
                     <p class="page-title">{{topicInfo.topicTitle}}</p>
                     <p class="page-intro">{{topicInfo.topicIntro}}</p>
@@ -82,6 +53,7 @@ export default {
         curTopic: 1,  //当前模块
         topicInfo: {},
         curMiniTitle: '',
+        isOver: false
     }
   },
   watch:{
@@ -90,16 +62,48 @@ export default {
   },
   methods:{
 　　　initImgsArr () {   //初始化图片数组的方法，把要加载的图片装入
+        if(this.isOver){
+            this.$refs.waterfall.waterfallOver()
+                return
+        }
         getArticle(this.curTopic, this.count, this.curMiniTitle).then(res => {
+            
+            if(res.data.length <10) {
+                let arr = []
+                res.data.forEach(arti=> {
+                    //去除婚纱模块照片
+                    if(this.curTopic === 1){
+                        let  newArti = createArticle(arti)
+                        let ret = newArti.content.replace(/<img\b[^>]*>/g, "")
+                        newArti.content = ret
+                        arr.push(newArti)
+                        return 
+                    }
+                    arr.push(createArticle(arti))
+                })
+                this.imgsArr = this.imgsArr.concat(arr)
+
+                // this.$refs.waterfall.waterfallOver()
+                this.isOver = true
+                return
+            }
             // if(res.data.length < 10){
             if(this.count >= 5){
                 console.log('没有了')
                 this.$refs.waterfall.waterfallOver()
-                return false
+                return
             }
             if(res.code === 1){
                 let arr = []
                 res.data.forEach(arti=> {
+                    //去除婚纱模块照片
+                    if(this.curTopic === 1){
+                        let  newArti = createArticle(arti)
+                        let ret = newArti.content.replace(/<img\b[^>]*>/g, "")
+                        newArti.content = ret
+                        arr.push(newArti)
+                        return 
+                    }
                     arr.push(createArticle(arti))
                 })
                 this.imgsArr = this.imgsArr.concat(arr)
@@ -109,9 +113,10 @@ export default {
 　　　},
     reset(){
         this.$refs.waterfall.reset()
+        this.isOver = false
+        // console.log(this.$refs.waterfall.$el)
         this.count = 1;
-        this.imgsArr = [],
-        this.cur = 2
+        this.imgsArr = []
     },
     //产生图片数组随机下标
     randomNumInImgArr(){
@@ -125,7 +130,7 @@ export default {
                 menuList: [
                     {name: '婚纱', icon: 'icon-hunli-1'},
                     {name: '婚礼场地', icon: 'icon-hunli-3'},
-                    {name: '礼服', icon: 'icon-lifuzhuanhuan'},
+                    {name: '伴娘礼服', icon: 'icon-lifuzhuanhuan'},
                     {name: '花束', icon: 'icon-hunli-2'},
                     {name: '戒指', icon: 'icon-hunli-'},
                 ]
@@ -226,7 +231,6 @@ export default {
      */
 
     this.initImgsArr()       //初始化第一次（即页面加载完毕时）要加载的图片数据
-// 　　this.fetchImgsArr = this.initImgsArr(20, 30) // 模拟每次请求的下一批新的图片的数据数据
       //取消loading动画
       this.$emit('page')
   },

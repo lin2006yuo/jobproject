@@ -1,3 +1,5 @@
+
+import { replaceSrc } from '@/common/util'
 export function normalizeHTML(str) {
     let div = document.createElement('div')
     div.innerHTML = str
@@ -10,9 +12,9 @@ export default class article {
     constructor({ id, article_author, article_content, article_title, rand_cover, time}){
         this.id = id,
         this.author = article_author,
-        this.content = normalizeHTML(article_content),
+        this.content = replaceSrc(normalizeHTML(article_content)),
         this.title = normalizeHTML(article_title),
-        this.src = 'https://angelswing.com.cn' + rand_cover,
+        this.src =  '/api' + (/mmbiz.qlogo.cn/i.test(rand_cover) ? `http://img01.store.sogou.com/net/a/04/link?appid=100520029&url=${rand_cover}` : rand_cover), // if(rand_cover.test)
         this.time = time
     }
 }
