@@ -110,7 +110,8 @@ export default {
     reset(){
         this.$refs.waterfall.reset()
         this.count = 1;
-        this.imgsArr = []
+        this.imgsArr = [],
+        this.cur = 2
     },
     //产生图片数组随机下标
     randomNumInImgArr(){
