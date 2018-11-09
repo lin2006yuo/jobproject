@@ -6,13 +6,14 @@
           <div class="article-title">
             <div class="de-title">{{article.title}}</div>
             <div class="de-intro-wrapper">
-              <div class="de-intro de-views"><i class="iconfont icon-view" style="font-size: 18px;margin-right: 10px"></i> 1052</div>
-              <div class="de-intro de-update">更新时间：2018-09-26</div>
+              <div class="de-intro de-views"><i class="iconfont icon-view" style="font-size: 18px;margin-right: 10px"></i> {{article.view}}</div>
+              <div class="de-intro de-update">更新时间：{{article.time}}</div>
             </div>
           </div>
           <div class="line"></div>
           <div class="article-wrapper">
-            <div class="article-content" v-html="article.content">
+            <!-- 添加版权提示 -->
+            <div class="article-content" v-html="article.content + `<p style='color: #999'>我们为您提供最新的新媒体资源，资源来源于互联网，版权归原作者所有，本站不承担任何技术及版权问题 。如果有侵权行为请及时通知我们，我们会在第一时间为您处理！</p>`">
               <!-- 
 
                   内容 
@@ -79,14 +80,18 @@ export default {
   props: {},
   data() {
     return {
-      likeCount: 520,
+      likeCount: 0,
       like: 'unlike',
       showMore: false,
       article: {},
       moreArticles: []
     };
   },
-  watch: {},
+  watch: {
+    article(article){
+      this.likeCount = article.like
+    }
+  },
   computed: {},
   methods: {
     ilikeit(){
