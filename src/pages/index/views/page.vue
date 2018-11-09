@@ -68,6 +68,15 @@ export default {
         }
         getArticle(this.curTopic, this.count, this.curMiniTitle).then(res => {
             
+            //获取的数据为0，直接关闭loading，显示无数据
+            if(res.data.length === 0) {
+                this.imgsArr = []
+                console.log('获取0条数据')
+                this.$refs.waterfall.waterfallOver()
+                return 
+            }
+
+            //获取的数据不够十张，下次不再获取数据
             if(res.data.length <10) {
                 let arr = []
                 res.data.forEach(arti=> {
@@ -87,12 +96,16 @@ export default {
                 this.isOver = true
                 return
             }
-            // if(res.data.length < 10){
+            
+            //只获取40条数据
             if(this.count >= 5){
                 console.log('没有了')
                 this.$refs.waterfall.waterfallOver()
                 return
             }
+
+
+            //正常获取数据
             if(res.code === 1){
                 let arr = []
                 res.data.forEach(arti=> {
@@ -108,6 +121,9 @@ export default {
                 })
                 this.imgsArr = this.imgsArr.concat(arr)
             }
+
+
+            //计数
             this.count ++
         })
 　　　},
@@ -326,45 +342,35 @@ export default {
                 vertical-align sub
 @media screen and (max-width: 1440px) 
    .page-menu 
-        position fixed
         width 180px
-        top 50%
         left 10%
         margin-top -200px
         z-index 1000
         cursor pointer 
 @media screen and (max-width: 1360px) 
    .page-menu 
-        position fixed
         width 180px
-        top 50%
         left 5%
         margin-top -200px
         z-index 1000
         cursor pointer 
 @media screen and (max-width: 1200px) 
    .page-menu 
-        position fixed
         width 180px
-        top 50%
         left 15%
         margin-top -200px
         z-index 1000
         cursor pointer 
 @media screen and (max-width: 1024px) 
    .page-menu 
-        position fixed
         width 180px
-        top 50%
         left 5%
         margin-top -200px
         z-index 1000
         cursor pointer 
 @media screen and (max-width: 900px) 
    .page-menu 
-        position fixed
         width 180px
-        top 50%
         left 15%
         margin-top -200px
         z-index 1000

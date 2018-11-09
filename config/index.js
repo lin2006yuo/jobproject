@@ -24,7 +24,7 @@ module.exports = {
           target:'https://angelswing.com.cn',
           changeOrigin:true,
           pathRewrite: {
-            '^/api': ''
+            '^/api': 'https://angelswing.com.cn'
           }
       }
     },
