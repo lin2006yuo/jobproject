@@ -98,11 +98,11 @@ export default {
             }
             
             //只获取40条数据
-            if(this.count >= 5){
-                console.log('没有了')
-                this.$refs.waterfall.waterfallOver()
-                return
-            }
+            // if(this.count >= 5){
+            //     console.log('没有了')
+            //     this.$refs.waterfall.waterfallOver()
+            //     return
+            // }
 
 
             //正常获取数据

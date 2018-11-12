@@ -3,17 +3,17 @@
         <div class="box clearfix">
             <ul class="list">
                 <p class="title"><a>产品</a></p>
-                <p class="item"><a href="#">婚礼</a></p>
-                <p class="item"><a href="#">孕育</a></p>
-                <p class="item"><a href="#">育儿</a></p>
-                <p class="item"><a href="#">家庭教育</a></p>
+                <p class="item"><a href="#" @click="turn2Topic(1)">婚礼</a></p>
+                <p class="item"><a href="#" @click="turn2Topic(2)">孕育</a></p>
+                <p class="item"><a href="#" @click="turn2Topic(3)">育儿</a></p>
+                <p class="item"><a href="#" @click="turn2Topic(4)">家庭教育</a></p>
             </ul>
             <ul class="list">
                 <p class="title"><a >合作</a></p>
-                <p class="item"><a href="#">婚礼</a></p>
-                <p class="item"><a href="#">孕育</a></p>
-                <p class="item"><a href="#">育儿</a></p>
-                <p class="item"><a href="#">家庭教育</a></p>
+                <p class="item"><a href="#" @click="turn2Topic(1)">婚礼</a></p>
+                <p class="item"><a href="#" @click="turn2Topic(2)">孕育</a></p>
+                <p class="item"><a href="#" @click="turn2Topic(3)">育儿</a></p>
+                <p class="item"><a href="#" @click="turn2Topic(4)">家庭教育</a></p>
             </ul>
             <ul class="list" style="margin-left: 60px">
                 <p class="title"><a>关于我们</a></p>
@@ -44,7 +44,17 @@ export default {
     data() {
         return {};
     },
-    components: {}
+    components: {},
+    methods: {
+        turn2Topic(index){
+            this.$router.push({
+                name: 'page',
+                query: {
+                    id: index, //模块ID           
+                }
+            })
+        }
+    }
 };
 </script>
 
