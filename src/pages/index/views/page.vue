@@ -1,10 +1,25 @@
 <template>
   <div class="page">
         <ul class="page-menu">
-          <li v-for="(item, index) in topicInfo.menuList" :key="index" class="page-menu-item" :class="{menuItemInedex: curMenuItemIndex === (index+1)}" @click="menuItemClickHandle(item.name, index + 1)">
+            <li v-for="(item, index) in topicInfo.menuList" :key="index" class="page-menu-item" :class="{menuItemInedex: curMenuItemIndex === (index+1)}" @click="menuItemClickHandle(item.name, index + 1)">
               <!-- <transition name="scale"><i class="iconfont icon-hunli-1" v-show="curMenuItemIndex === 1"></i></transition> -->
               <div class="iconbox"><i class="iconfont sp-icon" :class="[item.icon]"></i></div>
-              {{item.name}}</li>
+              {{item.name}}
+            </li>
+            <nav class="nav">
+                <input type="checkbox" class="nav__cb" id="menu-cb">
+                <label class="nav__btn" for="menu-cb"></label>
+                <div class="nav__content">
+                    <ul class="nav__items">
+                        <li class="nav__item" v-for="(item, index) in topicName" :key="index"
+                            @click="turn2OthterTopic(index + 1)"
+                        > 
+                            <span class="nav__item-text" style="white-space: nowrap" >{{item}}</span>
+                        </li>
+                    </ul>
+                </div>
+                
+            </nav>
         </ul>
             <vue-waterfall-easy 
                 ref="waterfall"
@@ -53,7 +68,8 @@ export default {
         curTopic: 1,  //当前模块
         topicInfo: {},
         curMiniTitle: '',
-        isOver: false
+        isOver: false,
+        topicName: ['婚礼', '孕育', '育儿', '家庭教育']
     }
   },
   watch:{
@@ -81,13 +97,13 @@ export default {
                 let arr = []
                 res.data.forEach(arti=> {
                     //去除婚纱模块照片
-                    if(this.curTopic === 1){
-                        let  newArti = createArticle(arti)
-                        let ret = newArti.content.replace(/<img\b[^>]*>/g, "")
-                        newArti.content = ret
-                        arr.push(newArti)
-                        return 
-                    }
+                    // if(this.curTopic === 1){
+                    //     let  newArti = createArticle(arti)
+                    //     let ret = newArti.content.replace(/<img\b[^>]*>/g, "")
+                    //     newArti.content = ret
+                    //     arr.push(newArti)
+                    //     return 
+                    // }
                     arr.push(createArticle(arti))
                 })
                 this.imgsArr = this.imgsArr.concat(arr)
@@ -110,13 +126,13 @@ export default {
                 let arr = []
                 res.data.forEach(arti=> {
                     //去除婚纱模块照片
-                    if(this.curTopic === 1){
-                        let  newArti = createArticle(arti)
-                        let ret = newArti.content.replace(/<img\b[^>]*>/g, "")
-                        newArti.content = ret
-                        arr.push(newArti)
-                        return 
-                    }
+                    // if(this.curTopic === 1){
+                    //     let  newArti = createArticle(arti)
+                    //     let ret = newArti.content.replace(/<img\b[^>]*>/g, "")
+                    //     newArti.content = ret
+                    //     arr.push(newArti)
+                    //     return 
+                    // }
                     arr.push(createArticle(arti))
                 })
                 this.imgsArr = this.imgsArr.concat(arr)
@@ -133,6 +149,7 @@ export default {
         // console.log(this.$refs.waterfall.$el)
         this.count = 1;
         this.imgsArr = []
+        this.changeMiniTitle()
     },
     //产生图片数组随机下标
     randomNumInImgArr(){
@@ -229,6 +246,12 @@ export default {
         }else {
             this.curMiniTitle = '学习方法'
         }
+    },
+    turn2OthterTopic(index){
+        this.curTopic = index
+        this.reset()
+        this.changeMenu()
+        this.initImgsArr()
     }
   },
   created(){
@@ -384,5 +407,167 @@ export default {
   opacity 0
 }
 // 瀑布流每个图片
+
+
+//展开动画
+*, *:before, *:after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* MAIN VARIABLES FOR CUSTOMIZATION */
+/* -------------------------------- */
+.nav {
+  position: relative;
+  left: 50%;
+  height: auto;
+  background: #fff;
+  border-radius: 5px;
+  -webkit-transform: translate3d(-50%, 0, 0);
+          transform: translate3d(-50%, 0, 0);
+}
+.nav__cb {
+  z-index: -1000;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+.nav__content {
+    float left;
+    margin-top: 70px
+  position: relative;
+  width: 90px;
+  height: 90px;
+  transition: height 1s cubic-bezier(0.49, -0.3, 0.68, 1.23);
+}
+.nav__content .nav__item {
+    transition: height 1s cubic-bezier(0.48, 0.43, 0.29, 1.3);
+}
+.nav__cb:checked ~ .nav__content {
+  transition: height 1s cubic-bezier(0.48, 0.43, 0.29, 1.3);
+  height: 200px;
+}
+.nav__cb:checked ~ .nav__content .nav__item {
+  transition: height 1s cubic-bezier(0.48, 0.43, 0.29, 1.3);
+  height: 50px
+}
+.nav__items {
+  position: relative;
+  height: 100%;
+  list-style-type: none;
+  font-size: 0;
+}
+.nav__item {
+  vertical-align: top;
+  width: 70px;
+  text-align: center;
+  color: #6C7784;
+  font-size: 18px;
+  color: #bbb;
+  line-height: 50px;
+  font-family: Helvetica, Arial, sans-serif;
+  -webkit-perspective: 1000px;
+          perspective: 1000px;
+  -webkit-transition: color 0.3s;
+  transition: color 0.3s;
+  cursor: pointer;
+    height 0
+}
+.nav__item:hover {
+  color: #7dbbfe;
+}
+.nav__item-text {
+  display: block;
+  height: 100%;
+  -webkit-transform: rotateY(-70deg);
+          transform: rotateY(-70deg);
+  opacity: 0;
+  -webkit-transition: opacity 0.7s, -webkit-transform 0.7s cubic-bezier(0.48, 0.43, 0.7, 2.5);
+  transition: opacity 0.7s, -webkit-transform 0.7s cubic-bezier(0.48, 0.43, 0.7, 2.5);
+  transition: transform 0.7s cubic-bezier(0.48, 0.43, 0.7, 2.5), opacity 0.7s;
+  transition: transform 0.7s cubic-bezier(0.48, 0.43, 0.7, 2.5), opacity 0.7s, -webkit-transform 0.7s cubic-bezier(0.48, 0.43, 0.7, 2.5);
+}
+.nav__cb:checked ~ .nav__content .nav__item-text {
+  -webkit-transform: rotateY(0);
+          transform: rotateY(0);
+  opacity: 1;
+  -webkit-transition: opacity 0.2s, -webkit-transform 0.7s cubic-bezier(0.48, 0.43, 0.7, 2.5);
+  transition: opacity 0.2s, -webkit-transform 0.7s cubic-bezier(0.48, 0.43, 0.7, 2.5);
+  transition: transform 0.7s cubic-bezier(0.48, 0.43, 0.7, 2.5), opacity 0.2s;
+  transition: transform 0.7s cubic-bezier(0.48, 0.43, 0.7, 2.5), opacity 0.2s, -webkit-transform 0.7s cubic-bezier(0.48, 0.43, 0.7, 2.5);
+}
+.nav__item:nth-child(1) .nav__item-text {
+  -webkit-transition-delay: 0.3s;
+          transition-delay: 0.3s;
+}
+.nav__cb:checked ~ .nav__content .nav__item:nth-child(1) .nav__item-text {
+  -webkit-transition-delay: 0s;
+          transition-delay: 0s;
+}
+.nav__item:nth-child(2) .nav__item-text {
+  -webkit-transition-delay: 0.2s;
+          transition-delay: 0.2s;
+}
+.nav__cb:checked ~ .nav__content .nav__item:nth-child(2) .nav__item-text {
+  -webkit-transition-delay: 0.1s;
+          transition-delay: 0.1s;
+}
+.nav__item:nth-child(3) .nav__item-text {
+  -webkit-transition-delay: 0.1s;
+          transition-delay: 0.1s;
+}
+.nav__cb:checked ~ .nav__content .nav__item:nth-child(3) .nav__item-text {
+  -webkit-transition-delay: 0.2s;
+          transition-delay: 0.2s;
+}
+.nav__item:nth-child(4) .nav__item-text {
+  -webkit-transition-delay: 0s;
+          transition-delay: 0s;
+}
+.nav__cb:checked ~ .nav__content .nav__item:nth-child(4) .nav__item-text {
+  -webkit-transition-delay: 0.3s;
+          transition-delay: 0.3s;
+}
+.nav__btn {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 90px;
+  height: 90px;
+  padding: 36px 17px;
+  cursor: pointer;
+}
+.nav__btn:before, .nav__btn:after {
+  content: "";
+  display: block;
+  width: 28px;
+  height: 4px;
+  border-radius: 2px;
+  background: #ccc;
+  -webkit-transform-origin: 50% 50%;
+          transform-origin: 50% 50%;
+  -webkit-transition: background-color 0.3s, -webkit-transform 1s cubic-bezier(0.48, 0.43, 0.29, 1.3);
+  transition: background-color 0.3s, -webkit-transform 1s cubic-bezier(0.48, 0.43, 0.29, 1.3);
+  transition: transform 1s cubic-bezier(0.48, 0.43, 0.29, 1.3), background-color 0.3s;
+  transition: transform 1s cubic-bezier(0.48, 0.43, 0.29, 1.3), background-color 0.3s, -webkit-transform 1s cubic-bezier(0.48, 0.43, 0.29, 1.3);
+}
+.nav__btn:before {
+  margin-bottom: 10px;
+}
+.nav__btn:hover:before, .nav__btn:hover:after {
+  background: #7dbbfe;
+}
+.nav__cb:checked ~ .nav__btn:before {
+  -webkit-transform: translateY(7px) rotate(-225deg);
+          transform: translateY(7px) rotate(-225deg);
+}
+.nav__cb:checked ~ .nav__btn:after {
+  -webkit-transform: translateY(-7px) rotate(225deg);
+          transform: translateY(-7px) rotate(225deg);
+}
+
 
 </style>
