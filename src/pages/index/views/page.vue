@@ -166,6 +166,7 @@ export default {
                     {name: '伴娘礼服', icon: 'icon-lifuzhuanhuan'},
                     {name: '花束', icon: 'icon-hunli-2'},
                     {name: '戒指', icon: 'icon-hunli-'},
+                    {name: '婚礼攻略', icon: 'icon-hunli-'},
                 ]
             }
           }else if(this.curTopic === 2) {
