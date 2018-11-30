@@ -63,7 +63,7 @@ export default {
   data(){
     return {
         imgsArr: [],
-        count: 2,
+        count: 10,
         curMenuItemIndex: 1,
         curTopic: 1,  //当前模块
         topicInfo: {},
@@ -83,7 +83,21 @@ export default {
                 return
         }
         getArticle(this.curTopic, this.count, this.curMiniTitle).then(res => {
-            
+            if(this.count === 1){
+                let arr = []
+                res.data.forEach(arti=> {
+                    //去除婚纱模块照片
+                    // if(this.curTopic === 1){
+                    //     let  newArti = createArticle(arti)
+                    //     let ret = newArti.content.replace(/<img\b[^>]*>/g, "")
+                    //     newArti.content = ret
+                    //     arr.push(newArti)
+                    //     return 
+                    // }
+                    arr.push(createArticle(arti))
+                })
+                localStorage.setItem('article', JSON.stringify(this.imgsArr.concat(arr)))
+            }
             //获取的数据为0，直接关闭loading，显示无数据
             if(res.data.length === 0) {
                 this.imgsArr = []
@@ -187,6 +201,9 @@ export default {
                     {name: '1-2个月', icon:'icon--baby-'},
                     {name: '3-6个月', icon:'icon-yinger'},
                     {name: '7-12个月', icon:'icon-ertong'},
+                    {name: '宝宝疾病', icon:'icon-ertong'},
+                    {name: '宝宝护理', icon:'icon-ertong'},
+                    {name: '育儿百科', icon:'icon-ertong'},
                 ]   
               }
           }else{
@@ -269,12 +286,19 @@ export default {
      * 3. 育儿
      * 4. 家庭教育
      */
-
-    this.initImgsArr()       //初始化第一次（即页面加载完毕时）要加载的图片数据
+    if(!localStorage.getItem('article')){
+        this.initImgsArr()       //初始化第一次（即页面加载完毕时）要加载的图片数据
+    }else{
+        console.log('hasSomething')
+        let article = JSON.parse(localStorage.getItem('article'))
+        this.imgsArr = article
+        this.count ++
+    }
       //取消loading动画
       this.$emit('page')
   },
   mounted(){
+    
   }
 }
 </script>
